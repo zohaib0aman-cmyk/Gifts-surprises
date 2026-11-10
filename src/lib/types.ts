@@ -156,6 +156,7 @@ export interface Order {
   paymentMethod: "card" | "apple_pay" | "google_pay" | "paypal" | "gift_card" | "demo";
   paymentIntentId?: string;
   paypalOrderId?: string;
+  paypalCaptureId?: string;
   trackingNumber?: string;
   trackingCarrier?: ShippingCarrier;
   refundedAmount?: number;
