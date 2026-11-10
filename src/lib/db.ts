@@ -42,6 +42,9 @@ export const listProducts = cache(async (opts: { includeInactive?: boolean } = {
     .filter((p) => opts.includeInactive || p.status === "active")
     .sort((a, b) => a.id.localeCompare(b.id));
 });
+/** Card-sized product for client components (keeps RSC payload / HTML small). */
+export const slimProduct = (p: Product): Product => ({ ...p, description: "", details: [] });
+
 export const getProductBySlug = cache(async (slug: string) => (await listProducts({ includeInactive: true })).find((p) => p.slug === slug) ?? null);
 export const getProductById = async (id: string) => (await listProducts({ includeInactive: true })).find((p) => p.id === id) ?? null;
 export async function saveProduct(p: Product) {

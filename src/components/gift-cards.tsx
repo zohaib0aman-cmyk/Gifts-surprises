@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Gift, Search, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Button, Field, Input, Textarea } from "./ui";
@@ -10,11 +10,11 @@ const AMOUNTS = [25, 50, 75, 100, 150, 250];
 
 function CardPreview({ amount, to, from, message }: { amount: number; to: string; from: string; message: string }) {
   return (
-    <motion.div className="relative mx-auto aspect-[1.6] w-full max-w-md [perspective:1200px]" initial={{ rotateX: 12, y: 20, opacity: 0 }} animate={{ rotateX: 0, y: 0, opacity: 1 }} transition={{ type: "spring", stiffness: 120, damping: 14 }}>
-      <motion.div whileHover={{ rotateY: -8, rotateX: 6 }} transition={{ type: "spring", stiffness: 200, damping: 18 }} className="relative h-full w-full overflow-hidden rounded-[1.75rem] bg-[linear-gradient(135deg,#2a1d20,#0f0a0b)] p-6 text-[#f6efe6] shadow-lift ring-1 ring-[#c9a14a]/50 [transform-style:preserve-3d]">
+    <m.div className="relative mx-auto aspect-[1.6] w-full max-w-md [perspective:1200px]" initial={{ rotateX: 12, y: 20, opacity: 0 }} animate={{ rotateX: 0, y: 0, opacity: 1 }} transition={{ type: "spring", stiffness: 120, damping: 14 }}>
+      <m.div whileHover={{ rotateY: -8, rotateX: 6 }} transition={{ type: "spring", stiffness: 200, damping: 18 }} className="relative h-full w-full overflow-hidden rounded-[1.75rem] bg-[linear-gradient(135deg,#2a1d20,#0f0a0b)] p-6 text-[#f6efe6] shadow-lift ring-1 ring-[#c9a14a]/50 [transform-style:preserve-3d]">
         <div className="gold-bg absolute inset-y-0 left-[34%] w-8 opacity-90" />
         <div className="gold-bg absolute inset-x-0 top-[46%] h-6 opacity-90" />
-        <motion.div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,.18)_45%,transparent_60%)]" animate={{ x: ["-100%", "120%"] }} transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 1.5 }} />
+        <m.div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,.18)_45%,transparent_60%)]" animate={{ x: ["-100%", "120%"] }} transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 1.5 }} />
         <div className="relative flex h-full flex-col justify-between">
           <div>
             <p className="font-display text-lg font-bold tracking-[0.12em]">GIFTS <span className="font-script text-2xl font-normal text-[#e9cf7f]">&amp;</span> SURPRISES</p>
@@ -26,12 +26,12 @@ function CardPreview({ amount, to, from, message }: { amount: number; to: string
               {message && <p className="mt-1 line-clamp-1 font-display text-sm italic text-white/90">“{message}”</p>}
             </div>
             <AnimatePresence mode="popLayout">
-              <motion.p key={amount} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="gold-text font-display text-5xl">{money(amount).replace(".00", "")}</motion.p>
+              <m.p key={amount} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="gold-text font-display text-5xl">{money(amount).replace(".00", "")}</m.p>
             </AnimatePresence>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -61,7 +61,7 @@ export function GiftCardBuilder() {
           <div className="grid grid-cols-3 gap-2">
             {AMOUNTS.map((a) => (
               <button key={a} type="button" aria-pressed={!custom && amount === a} onClick={() => { setAmount(a); setCustom(""); }} className={cn("relative h-14 rounded-2xl border font-display text-xl transition", !custom && amount === a ? "border-ink" : "border-line hover:border-gold")}>
-                {!custom && amount === a && <motion.span layoutId="gc-amt" className="absolute inset-0 rounded-2xl bg-blush" />}
+                {!custom && amount === a && <m.span layoutId="gc-amt" className="absolute inset-0 rounded-2xl bg-blush" />}
                 <span className="relative">${a}</span>
               </button>
             ))}
@@ -105,12 +105,12 @@ export function BalanceChecker() {
       </form>
       <AnimatePresence>
         {res && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-blush p-5">
+          <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-blush p-5">
             <div><p className="font-mono text-sm">{res.code}</p><p className="font-display text-3xl">{money(res.balance)} <span className="text-base text-muted">of {money(res.initialBalance)}</span></p></div>
             <Button variant="gold" onClick={() => { apply(res.code); toast({ title: "Gift card will be applied at checkout", description: res.code }); }}>Apply to my bag</Button>
-          </motion.div>
+          </m.div>
         )}
-        {err && <motion.p role="alert" initial={{ opacity: 0 }} animate={{ opacity: 1, x: [0, -6, 6, 0] }} className="mt-4 text-sm text-rose">{err}</motion.p>}
+        {err && <m.p role="alert" initial={{ opacity: 0 }} animate={{ opacity: 1, x: [0, -6, 6, 0] }} className="mt-4 text-sm text-rose">{err}</m.p>}
       </AnimatePresence>
     </div>
   );

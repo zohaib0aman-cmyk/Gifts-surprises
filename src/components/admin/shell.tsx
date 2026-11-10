@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ExternalLink, Inbox, LayoutDashboard, LogOut, MessageSquareQuote, Package, Palette, Settings, ShoppingCart, Tag, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ function NavList({ onNavigate, counts }: { onNavigate?: () => void; counts: Reco
         return (
           <li key={n.href}>
             <Link href={n.href} onClick={onNavigate} aria-current={active ? "page" : undefined} className={cn("relative flex min-h-11 items-center gap-3 rounded-2xl px-3 text-sm font-medium transition", active ? "text-on-ink" : "text-muted hover:bg-surface-2 hover:text-fg")}>
-              {active && <motion.span layoutId="admin-nav" className="absolute inset-0 rounded-2xl bg-ink" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+              {active && <m.span layoutId="admin-nav" className="absolute inset-0 rounded-2xl bg-ink" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
               <n.icon size={18} className="relative" />
               <span className="relative flex-1">{n.label}</span>
               {c ? <span className={cn("relative rounded-full px-2 py-0.5 text-[0.65rem] font-bold", active ? "bg-gold text-[#2a1d06]" : "bg-rose text-white")}>{c}</span> : null}
@@ -82,12 +82,12 @@ export function AdminShell({ children, email, counts, storeName, logoUrl, backen
         <AnimatePresence>
           {open && (
             <>
-              <motion.div className="fixed inset-0 z-40 bg-black/40 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} />
-              <motion.nav aria-label="Admin" className="fixed inset-y-0 left-0 z-50 flex w-[82vw] max-w-xs flex-col gap-6 bg-surface p-4 shadow-lift lg:hidden" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 36 }}>
+              <m.div className="fixed inset-0 z-40 bg-black/40 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} />
+              <m.nav aria-label="Admin" className="fixed inset-y-0 left-0 z-50 flex w-[82vw] max-w-xs flex-col gap-6 bg-surface p-4 shadow-lift lg:hidden" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 36 }}>
                 <div className="pt-2">{brand}</div>
                 <div className="flex-1 overflow-y-auto"><NavList counts={counts} onNavigate={() => setOpen(false)} /></div>
                 {footer}
-              </motion.nav>
+              </m.nav>
             </>
           )}
         </AnimatePresence>

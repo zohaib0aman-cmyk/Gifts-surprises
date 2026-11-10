@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, Cookie, Home, Info, Search, User, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,7 +33,7 @@ export function BottomNav() {
           const inner = (
             <>
               <span className="relative">
-                {it.active && <motion.span layoutId="bottom-pill" className="absolute -inset-x-3 -inset-y-1.5 rounded-full bg-blush" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
+                {it.active && <m.span layoutId="bottom-pill" className="absolute -inset-x-3 -inset-y-1.5 rounded-full bg-blush" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
                 <span className="relative">{it.icon}</span>
               </span>
               <span className={cn("text-[0.65rem] font-semibold tracking-wide", it.active ? "text-fg" : "text-muted")}>{it.label}</span>
@@ -62,7 +62,7 @@ export function Toaster() {
     <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-[84px] z-[80] flex flex-col items-center gap-2 px-4 lg:bottom-6 lg:right-6 lg:left-auto lg:items-end">
       <AnimatePresence initial={false}>
         {toasts.map((t) => (
-          <motion.div
+          <m.div
             key={t.id}
             layout
             initial={{ opacity: 0, y: 30, scale: 0.92 }}
@@ -77,7 +77,7 @@ export function Toaster() {
             ) : (
               <span className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full", t.tone === "error" ? "bg-rose/12 text-rose" : t.tone === "info" ? "bg-surface-2 text-fg" : "bg-gold/20 text-gold-ink")}>
                 {t.tone === "error" ? <X size={18} /> : t.tone === "info" ? <Info size={18} /> : (
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round"><motion.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.1 }} /></svg>
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round"><m.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.1 }} /></svg>
                 )}
               </span>
             )}
@@ -91,8 +91,8 @@ export function Toaster() {
               <button onClick={() => { t.action?.onClick?.(); dismiss(t.id); }} className="shrink-0 rounded-full px-3 py-2 text-xs font-bold uppercase tracking-wider text-gold-ink hover:bg-surface-2">{t.action.label}</button>
             ))}
             <button onClick={() => dismiss(t.id)} aria-label="Dismiss notification" className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-muted hover:bg-surface-2"><X size={16} /></button>
-            <motion.span className="absolute bottom-0 left-0 h-0.5 bg-gold" initial={{ width: "100%" }} animate={{ width: 0 }} transition={{ duration: 4.2, ease: "linear" }} />
-          </motion.div>
+            <m.span className="absolute bottom-0 left-0 h-0.5 bg-gold" initial={{ width: "100%" }} animate={{ width: 0 }} transition={{ duration: 4.2, ease: "linear" }} />
+          </m.div>
         ))}
       </AnimatePresence>
     </div>
@@ -117,9 +117,9 @@ export function CookieBanner() {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div role="dialog" aria-label="Cookie preferences" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }} transition={{ type: "spring", stiffness: 300, damping: 30, delay: 1.2 }} className="fixed inset-x-3 bottom-[76px] z-[70] mx-auto max-w-lg rounded-3xl border border-line bg-surface p-5 shadow-lift lg:bottom-6 lg:left-6 lg:right-auto">
+        <m.div role="dialog" aria-label="Cookie preferences" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }} transition={{ type: "spring", stiffness: 300, damping: 30, delay: 1.2 }} className="fixed inset-x-3 bottom-[76px] z-[70] mx-auto max-w-lg rounded-3xl border border-line bg-surface p-5 shadow-lift lg:bottom-6 lg:left-6 lg:right-auto">
           <div className="flex gap-4">
-            <motion.span animate={{ rotate: [0, -12, 10, 0] }} transition={{ duration: 1.2, delay: 1.8 }} className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blush text-gold-ink"><Cookie size={22} /></motion.span>
+            <m.span animate={{ rotate: [0, -12, 10, 0] }} transition={{ duration: 1.2, delay: 1.8 }} className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blush text-gold-ink"><Cookie size={22} /></m.span>
             <div className="space-y-1">
               <p className="font-display text-lg">A sweet note about cookies</p>
               <p className="text-sm leading-relaxed text-muted">We use essential cookies to keep your cart and wishlist safe, and optional analytics to improve the store. <Link href="/policies/privacy" className="underline underline-offset-2">Privacy Policy</Link></p>
@@ -127,14 +127,14 @@ export function CookieBanner() {
           </div>
           <AnimatePresence>
             {prefs && (
-              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+              <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                 <div className="mt-4 space-y-2 rounded-2xl bg-surface-2 p-3 text-sm">
                   <div className="flex min-h-11 items-center justify-between"><span>Essential (cart, checkout, security)</span><span className="flex items-center gap-1 text-xs font-semibold text-muted"><Check size={14} /> Always on</span></div>
                   <label className="flex min-h-11 cursor-pointer items-center justify-between"><span>Analytics</span>
                     <input type="checkbox" checked={analytics} onChange={(e) => setAnalytics(e.target.checked)} className="h-5 w-9 cursor-pointer appearance-none rounded-full bg-line transition before:block before:h-4 before:w-4 before:translate-x-0.5 before:rounded-full before:bg-white before:shadow before:transition checked:bg-ink checked:before:translate-x-[18px]" />
                   </label>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export function CookieBanner() {
             )}
             {!prefs && <button onClick={() => setPrefs(true)} className="min-h-10 px-3 text-sm font-semibold text-muted underline-offset-2 hover:underline">Preferences</button>}
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

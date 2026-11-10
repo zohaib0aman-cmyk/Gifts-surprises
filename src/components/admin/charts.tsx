@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { money } from "@/lib/utils";
 
@@ -38,8 +38,8 @@ export function RevenueChart({ data }: { data: { date: string; revenue: number; 
           </g>
         ))}
         {data.map((d, i) => (i % (W < 500 ? 10 : 7) === 0 || i === data.length - 1) && <text key={d.date} x={x(i)} y={H - 8} textAnchor="middle" fontSize="11" fill="var(--muted)">{new Date(d.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</text>)}
-        <motion.path d={area} fill="url(#rev-fill)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }} />
-        <motion.path d={line} fill="none" stroke="var(--gold-ink)" strokeWidth="2" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2, ease: "easeInOut" }} />
+        <m.path d={area} fill="url(#rev-fill)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }} />
+        <m.path d={line} fill="none" stroke="var(--gold-ink)" strokeWidth="2" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2, ease: "easeInOut" }} />
         {h && hover != null && (
           <g>
             <line x1={x(hover)} x2={x(hover)} y1={P.t} y2={H - P.b} stroke="var(--muted)" strokeOpacity=".5" />
@@ -67,7 +67,7 @@ export function BarList({ rows, money: asMoney }: { rows: { label: string; value
       {rows.map((r, i) => (
         <li key={r.label} className="group" title={`${r.label}: ${format(r.value)}`}>
           <div className="mb-1 flex items-baseline justify-between gap-3 text-sm"><span className="truncate">{r.label}{r.sub && <span className="ml-1.5 text-xs text-muted">{r.sub}</span>}</span><span className="shrink-0 font-semibold tabular-nums">{format(r.value)}</span></div>
-          <div className="h-2 overflow-hidden rounded-full bg-surface-2"><motion.div className="h-full rounded-full bg-gold group-hover:brightness-110" initial={{ width: 0 }} animate={{ width: `${(r.value / max) * 100}%` }} transition={{ duration: 0.8, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }} /></div>
+          <div className="h-2 overflow-hidden rounded-full bg-surface-2"><m.div className="h-full rounded-full bg-gold group-hover:brightness-110" initial={{ width: 0 }} animate={{ width: `${(r.value / max) * 100}%` }} transition={{ duration: 0.8, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }} /></div>
         </li>
       ))}
     </ul>

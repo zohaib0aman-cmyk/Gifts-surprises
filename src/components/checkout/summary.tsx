@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, CreditCard, Gift, Tag, X } from "lucide-react";
 import { useState } from "react";
 import { ProductImage } from "../product-image";
@@ -12,7 +12,7 @@ function AnimatedMoney({ value, className }: { value: number; className?: string
   return (
     <span className={cn("relative inline-flex overflow-hidden tabular-nums", className)}>
       <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span key={value.toFixed(2)} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: 0.25 }}>{money(value)}</motion.span>
+        <m.span key={value.toFixed(2)} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: 0.25 }}>{money(value)}</m.span>
       </AnimatePresence>
     </span>
   );
@@ -33,25 +33,25 @@ export function CodeInputs({ quote }: { quote: Quote | null }) {
       ].map((c) => (
         <div key={c.k}>
           {c.applied && c.ok ? (
-            <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex min-h-12 items-center justify-between rounded-2xl border border-dashed border-gold bg-gold/10 px-4 text-sm">
+            <m.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex min-h-12 items-center justify-between rounded-2xl border border-dashed border-gold bg-gold/10 px-4 text-sm">
               <span className="flex items-center gap-2"><c.icon size={16} className="text-gold-ink" /><strong>{c.applied}</strong><span className="text-muted">{c.k === "promo" ? quote?.promo?.description : `${money(quote?.giftCard?.remaining ?? 0)} left after this order`}</span></span>
               <button type="button" onClick={c.remove} aria-label={`Remove ${c.label}`} className="grid h-10 w-10 place-items-center rounded-full hover:bg-surface"><X size={15} /></button>
-            </motion.div>
+            </m.div>
           ) : (
             <>
               <button type="button" onClick={() => setOpen(open === c.k ? null : c.k)} aria-expanded={open === c.k} className="flex min-h-11 w-full items-center justify-between text-sm font-semibold">
                 <span className="flex items-center gap-2"><c.icon size={16} className="text-gold-ink" /> Add {c.label.toLowerCase()}</span>
-                <motion.span animate={{ rotate: open === c.k ? 180 : 0 }}><ChevronDown size={16} /></motion.span>
+                <m.span animate={{ rotate: open === c.k ? 180 : 0 }}><ChevronDown size={16} /></m.span>
               </button>
               <AnimatePresence initial={false}>
                 {(open === c.k || (c.applied && c.err)) && (
-                  <motion.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden" onSubmit={(e) => { e.preventDefault(); c.apply(); }}>
+                  <m.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden" onSubmit={(e) => { e.preventDefault(); c.apply(); }}>
                     <div className="flex gap-2 pt-1">
                       <Input aria-label={c.label} value={c.val} onChange={(e) => c.set(e.target.value)} placeholder={c.ph} className="uppercase placeholder:normal-case" />
                       <Button type="submit" variant="outline" className="shrink-0">Apply</Button>
                     </div>
-                    {c.applied && c.err && <motion.p initial={{ x: -6 }} animate={{ x: [0, -6, 6, -3, 0] }} className="mt-2 text-sm text-rose" role="alert">{c.err}</motion.p>}
-                  </motion.form>
+                    {c.applied && c.err && <m.p initial={{ x: -6 }} animate={{ x: [0, -6, 6, -3, 0] }} className="mt-2 text-sm text-rose" role="alert">{c.err}</m.p>}
+                  </m.form>
                 )}
               </AnimatePresence>
             </>
@@ -109,11 +109,11 @@ export function OrderSummary({ lines, quote, loading, collapsible }: { lines: Ca
   return (
     <div className="rounded-3xl border border-line bg-surface">
       <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="flex min-h-14 w-full items-center justify-between px-4 text-sm font-semibold">
-        <span className="flex items-center gap-2">{open ? "Hide" : "Show"} order summary <motion.span animate={{ rotate: open ? 180 : 0 }}><ChevronDown size={16} /></motion.span></span>
+        <span className="flex items-center gap-2">{open ? "Hide" : "Show"} order summary <m.span animate={{ rotate: open ? 180 : 0 }}><ChevronDown size={16} /></m.span></span>
         {quote ? <AnimatedMoney value={quote.total} className="font-display text-xl" /> : <span className="skeleton h-5 w-16 rounded" />}
       </button>
       <AnimatePresence initial={false}>
-        {open && <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><div className="border-t border-line p-4">{body}</div></motion.div>}
+        {open && <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><div className="border-t border-line p-4">{body}</div></m.div>}
       </AnimatePresence>
     </div>
   );

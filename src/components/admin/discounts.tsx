@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Copy, Gift, Pencil, Plus, Tag, Trash2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { Panel } from "./shell";
 import { Button, Checkbox, Field, Input, Select, Textarea } from "../ui";
 import { toast } from "@/lib/client-store";
 import type { GiftCard, PromoCode } from "@/lib/types";
-import { cn, formatDate, money } from "@/lib/utils";
+import { cn, formatDate, money, nowMs } from "@/lib/utils";
 
 const emptyPromo: Omit<PromoCode, "id" | "used"> & { id?: string } = { code: "", type: "percent", value: 10, active: true, description: "" };
 
@@ -32,7 +32,7 @@ export function Discounts({ promos, cards }: { promos: PromoCode[]; cards: GiftC
       <Panel title={<span className="flex items-center gap-2"><Tag size={18} className="text-gold-ink" /> Promo codes</span>} action={<Button size="sm" onClick={() => setEdit({ ...emptyPromo })}><Plus size={14} /> New code</Button>}>
         <AnimatePresence>
           {edit && (
-            <motion.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"
+            <m.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"
               onSubmit={async (e) => { e.preventDefault(); if (await call("/api/admin/promos", "POST", { ...edit, minSubtotal: edit.minSubtotal || undefined, usageLimit: edit.usageLimit || undefined }, edit.id ? "Promo updated" : "Promo created")) setEdit(null); }}>
               <div className="mb-4 grid grid-cols-2 gap-3 rounded-2xl bg-surface-2/60 p-4">
                 <Field label="Code" htmlFor="pc-code"><Input id="pc-code" required value={edit.code} onChange={(e) => setEdit({ ...edit, code: e.target.value.toUpperCase() })} className="font-mono" /></Field>
@@ -45,12 +45,12 @@ export function Discounts({ promos, cards }: { promos: PromoCode[]; cards: GiftC
                 <Checkbox checked={edit.active} onChange={(e) => setEdit({ ...edit, active: e.target.checked })} label="Active" />
                 <div className="col-span-2 flex gap-2"><Button type="submit" loading={busy}>Save code</Button><Button type="button" variant="ghost" onClick={() => setEdit(null)}>Cancel</Button></div>
               </div>
-            </motion.form>
+            </m.form>
           )}
         </AnimatePresence>
         <ul className="divide-y divide-line">
           {promos.map((p) => {
-            const expired = p.expiresAt && Date.parse(p.expiresAt) < Date.now();
+            const expired = p.expiresAt && Date.parse(p.expiresAt) < nowMs();
             return (
               <li key={p.id} className="flex items-center gap-3 py-3">
                 <span className="min-w-0 flex-1">
@@ -67,7 +67,7 @@ export function Discounts({ promos, cards }: { promos: PromoCode[]; cards: GiftC
       <Panel title={<span className="flex items-center gap-2"><Gift size={18} className="text-gold-ink" /> Gift cards</span>} action={<Button size="sm" onClick={() => setGc({ amount: "50", recipientName: "", recipientEmail: "", message: "", send: true })}><Plus size={14} /> Issue card</Button>}>
         <AnimatePresence>
           {gc && (
-            <motion.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"
+            <m.form initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"
               onSubmit={async (e) => { e.preventDefault(); const j = await call("/api/admin/giftcards", "POST", { ...gc, amount: Number(gc.amount) }, "Gift card issued"); if (j) { setGc(null); navigator.clipboard?.writeText(j.card.code).catch(() => {}); } }}>
               <div className="mb-4 grid grid-cols-2 gap-3 rounded-2xl bg-surface-2/60 p-4">
                 <Field label="Amount ($)" htmlFor="gc-a"><Input id="gc-a" required inputMode="decimal" value={gc.amount} onChange={(e) => setGc({ ...gc, amount: e.target.value })} /></Field>
@@ -77,7 +77,7 @@ export function Discounts({ promos, cards }: { promos: PromoCode[]; cards: GiftC
                 <Checkbox checked={gc.send} onChange={(e) => setGc({ ...gc, send: e.target.checked })} label="Email it to the recipient" className="col-span-2" />
                 <div className="col-span-2 flex gap-2"><Button type="submit" loading={busy}>Issue gift card</Button><Button type="button" variant="ghost" onClick={() => setGc(null)}><X size={14} /> Cancel</Button></div>
               </div>
-            </motion.form>
+            </m.form>
           )}
         </AnimatePresence>
         <ul className="divide-y divide-line">

@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Printer, RotateCcw, Save, Truck } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -113,14 +113,14 @@ export function OrderManager({ order: initial }: { order: Order }) {
           </div>
           <AnimatePresence>
             {refundOpen && (
-              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+              <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                 <div className="mt-4 space-y-3 rounded-2xl border border-rose/30 bg-rose/5 p-4">
                   <Field label={`Amount (max ${money(refundable)})`} htmlFor="o-ref"><Input id="o-ref" inputMode="decimal" value={refundAmt} onChange={(e) => setRefundAmt(e.target.value.replace(/[^\d.]/g, ""))} /></Field>
                   <Field label="Reason (optional)" htmlFor="o-rr"><Input id="o-rr" value={refundReason} onChange={(e) => setRefundReason(e.target.value)} placeholder="Damaged in transit" /></Field>
                   <Button variant="danger" className="w-full" loading={busy} disabled={!Number(refundAmt) || Number(refundAmt) > refundable} onClick={refund}>Refund {money(Number(refundAmt) || 0)}</Button>
                   <p className="text-xs text-muted">Refunds go back to the original payment method via Stripe or PayPal (test mode).</p>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </Panel>

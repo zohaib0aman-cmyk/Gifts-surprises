@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -51,7 +51,7 @@ function Suggestions({ q, hits, loading, active, onPick, listId }: { q: string; 
       ))}
       {!loading && !hits.length && <li className="p-4 text-sm text-muted">No gifts match “{q}”. Try “roses” or “birthday”.</li>}
       {hits.map((h, i) => (
-        <motion.li key={h.id} role="option" aria-selected={i === active} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+        <m.li key={h.id} role="option" aria-selected={i === active} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
           <Link href={`/product/${h.slug}`} onClick={onPick} className={cn("flex min-h-14 items-center gap-3 rounded-2xl p-2 transition hover:bg-surface-2", i === active && "bg-surface-2")}>
             <span className="relative h-14 w-12 shrink-0 overflow-hidden rounded-xl bg-surface-2"><ProductImage src={h.image} alt="" fill sizes="48px" /></span>
             <span className="min-w-0 flex-1">
@@ -60,7 +60,7 @@ function Suggestions({ q, hits, loading, active, onPick, listId }: { q: string; 
             </span>
             <span className="text-sm font-semibold tabular-nums">{money(h.price)}</span>
           </Link>
-        </motion.li>
+        </m.li>
       ))}
       {hits.length > 0 && (
         <li>
@@ -111,14 +111,14 @@ export function HeaderSearch() {
 
   return (
     <div ref={wrapRef} className="relative hidden lg:block">
-      <motion.div
+      <m.div
         className={cn("flex h-11 items-center overflow-hidden rounded-full", open ? "border border-line bg-surface shadow-soft" : "")}
         initial={false}
         animate={{ width: open ? 300 : 44 }}
         transition={{ type: "spring", stiffness: 320, damping: 32 }}
       >
         <button type="button" aria-label={open ? "Close search" : "Search gifts"} aria-expanded={open} onClick={() => (open ? close() : setOpen(true))} className="grid h-11 w-11 shrink-0 place-items-center rounded-full hover:text-gold-ink">
-          <motion.span animate={{ rotate: open ? 90 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>{open ? <X size={19} /> : <Search size={20} />}</motion.span>
+          <m.span animate={{ rotate: open ? 90 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>{open ? <X size={19} /> : <Search size={20} />}</m.span>
         </button>
         <input
           ref={inputRef}
@@ -132,12 +132,12 @@ export function HeaderSearch() {
           tabIndex={open ? 0 : -1}
           className="h-full min-w-0 flex-1 bg-transparent pr-4 text-sm outline-none placeholder:text-muted"
         />
-      </motion.div>
+      </m.div>
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0, y: -6, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6, scale: 0.98 }} transition={{ duration: 0.2 }} className="absolute right-0 top-14 z-50 w-[380px] overflow-hidden rounded-3xl border border-line bg-surface shadow-lift">
+          <m.div initial={{ opacity: 0, y: -6, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6, scale: 0.98 }} transition={{ duration: 0.2 }} className="absolute right-0 top-14 z-50 w-[380px] overflow-hidden rounded-3xl border border-line bg-surface shadow-lift">
             <Suggestions q={q} hits={hits} loading={loading} active={active} onPick={close} listId={listId} />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -156,11 +156,11 @@ export function SearchSheet() {
     <AnimatePresence>
       {searchOpen && (
         <>
-          <motion.div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={close} />
-          <motion.div role="dialog" aria-modal="true" aria-label="Search" className="fixed inset-x-0 top-0 z-[61] rounded-b-[2rem] border-b border-line bg-surface pt-[env(safe-area-inset-top)] shadow-lift" initial={{ y: "-100%" }} animate={{ y: 0 }} exit={{ y: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 34 }}>
+          <m.div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={close} />
+          <m.div role="dialog" aria-modal="true" aria-label="Search" className="fixed inset-x-0 top-0 z-[61] rounded-b-[2rem] border-b border-line bg-surface pt-[env(safe-area-inset-top)] shadow-lift" initial={{ y: "-100%" }} animate={{ y: 0 }} exit={{ y: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 34 }}>
             <div className="flex items-center gap-2 border-b border-line p-3">
-              <motion.span initial={{ scale: 0.6, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} className="grid h-11 w-11 place-items-center text-gold-ink"><Search size={20} /></motion.span>
-              <motion.input
+              <m.span initial={{ scale: 0.6, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} className="grid h-11 w-11 place-items-center text-gold-ink"><Search size={20} /></m.span>
+              <m.input
                 autoFocus
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
@@ -176,7 +176,7 @@ export function SearchSheet() {
               <button onClick={close} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface-2" aria-label="Close search"><X size={20} /></button>
             </div>
             <Suggestions q={q} hits={hits} loading={loading} active={active} onPick={close} listId={listId} />
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

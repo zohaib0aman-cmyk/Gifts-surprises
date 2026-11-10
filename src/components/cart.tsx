@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Gift, Minus, Plus, ShoppingBag, Trash2, Truck, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -25,8 +25,8 @@ export function FreeShippingBar({ subtotal, className }: { subtotal: number; cla
         )}
       </p>
       <div className="relative h-2 overflow-hidden rounded-full bg-surface-2" role="progressbar" aria-valuenow={Math.round(pct * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Progress to free delivery">
-        <motion.div className="gold-bg absolute inset-y-0 left-0 rounded-full" initial={false} animate={{ width: `${pct * 100}%` }} transition={{ type: "spring", stiffness: 120, damping: 20 }} />
-        {pct >= 1 && <motion.div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)]" initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1.2, repeat: 2 }} />}
+        <m.div className="gold-bg absolute inset-y-0 left-0 rounded-full" initial={false} animate={{ width: `${pct * 100}%` }} transition={{ type: "spring", stiffness: 120, damping: 20 }} />
+        {pct >= 1 && <m.div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)]" initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1.2, repeat: 2 }} />}
       </div>
     </div>
   );
@@ -39,7 +39,7 @@ export function QtyStepper({ value, onChange, min = 1, max = 20, size = "md" }: 
       <button type="button" aria-label="Decrease quantity" disabled={value <= min} onClick={() => onChange(value - 1)} className={cn("grid place-items-center rounded-full transition hover:bg-surface-2 disabled:opacity-40", size === "sm" ? "h-10 w-10" : "h-12 w-12")}><Minus size={15} /></button>
       <span className="relative w-7 overflow-hidden text-center text-sm font-semibold tabular-nums" aria-live="polite">
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.span key={value} className="block" initial={{ y: 12, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -12, opacity: 0 }} transition={{ duration: 0.18 }}>{value}</motion.span>
+          <m.span key={value} className="block" initial={{ y: 12, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -12, opacity: 0 }} transition={{ duration: 0.18 }}>{value}</m.span>
         </AnimatePresence>
       </span>
       <button type="button" aria-label="Increase quantity" disabled={value >= max} onClick={() => onChange(value + 1)} className={cn("grid place-items-center rounded-full transition hover:bg-surface-2 disabled:opacity-40", size === "sm" ? "h-10 w-10" : "h-12 w-12")}><Plus size={15} /></button>
@@ -52,7 +52,7 @@ export function CartLineRow({ line, compact }: { line: CartLine; compact?: boole
   const { setCart } = useUI();
   const href = line.giftCard ? "/gift-cards" : `/product/${line.slug}`;
   return (
-    <motion.li layout initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40, height: 0, marginTop: 0, paddingTop: 0, paddingBottom: 0 }} transition={{ type: "spring", stiffness: 380, damping: 34 }} className="flex gap-4 overflow-hidden py-4">
+    <m.li layout initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40, height: 0, marginTop: 0, paddingTop: 0, paddingBottom: 0 }} transition={{ type: "spring", stiffness: 380, damping: 34 }} className="flex gap-4 overflow-hidden py-4">
       <Link href={href} onClick={() => setCart(false)} className={cn("relative shrink-0 overflow-hidden rounded-2xl bg-surface-2", compact ? "h-24 w-20" : "h-32 w-28")}>
         <ProductImage src={line.image} alt={line.name} fill sizes="112px" />
       </Link>
@@ -75,17 +75,17 @@ export function CartLineRow({ line, compact }: { line: CartLine; compact?: boole
           <span className="font-semibold tabular-nums">{money(line.unitPrice * line.quantity)}</span>
         </div>
       </div>
-    </motion.li>
+    </m.li>
   );
 }
 
 export function EmptyCart({ onBrowse }: { onBrowse?: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
-      <motion.div className="relative mb-6 grid h-28 w-28 place-items-center rounded-full bg-blush" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200, damping: 16 }}>
-        <motion.span animate={{ y: [0, -6, 0], rotate: [0, -4, 4, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}><ShoppingBag size={44} strokeWidth={1.3} className="text-gold-ink" /></motion.span>
-        <motion.span className="absolute right-3 top-3 text-xl" animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}>✨</motion.span>
-      </motion.div>
+      <m.div className="relative mb-6 grid h-28 w-28 place-items-center rounded-full bg-blush" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200, damping: 16 }}>
+        <m.span animate={{ y: [0, -6, 0], rotate: [0, -4, 4, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}><ShoppingBag size={44} strokeWidth={1.3} className="text-gold-ink" /></m.span>
+        <m.span className="absolute right-3 top-3 text-xl" animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}>✨</m.span>
+      </m.div>
       <h3 className="font-display text-2xl">Your bag is waiting for something special</h3>
       <p className="mt-2 max-w-xs text-sm text-muted">Roses, teddy bears, cakes or a full surprise setup — let&apos;s make someone smile today.</p>
       <ButtonLink href="/shop" onClick={onBrowse} className="mt-6">Explore gifts</ButtonLink>
@@ -113,11 +113,11 @@ export function CartDrawer() {
     <AnimatePresence>
       {cartOpen && (
         <>
-          <motion.div className="fixed inset-0 z-[65] bg-black/45 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCart(false)} />
-          <motion.aside role="dialog" aria-modal="true" aria-label="Shopping bag" className="fixed inset-y-0 right-0 z-[66] flex w-full max-w-md flex-col bg-surface shadow-lift sm:rounded-l-[2rem]" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 330, damping: 36 }}>
+          <m.div className="fixed inset-0 z-[65] bg-black/45 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCart(false)} />
+          <m.aside role="dialog" aria-modal="true" aria-label="Shopping bag" className="fixed inset-y-0 right-0 z-[66] flex w-full max-w-md flex-col bg-surface shadow-lift sm:rounded-l-[2rem]" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 330, damping: 36 }}>
             <div className="flex items-center justify-between border-b border-line px-5 py-4">
               <h2 className="font-display text-2xl">Your bag <span className="align-middle text-sm font-sans font-semibold text-muted">({cartCount(items)})</span></h2>
-              <button autoFocus onClick={() => setCart(false)} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface-2" aria-label="Close bag"><motion.span whileHover={{ rotate: 90 }}><X size={20} /></motion.span></button>
+              <button autoFocus onClick={() => setCart(false)} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface-2" aria-label="Close bag"><m.span whileHover={{ rotate: 90 }}><X size={20} /></m.span></button>
             </div>
             {items.length === 0 ? (
               <EmptyCart onBrowse={() => setCart(false)} />
@@ -132,7 +132,7 @@ export function CartDrawer() {
                 <div className="space-y-3 border-t border-line bg-surface-2/50 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4">
                   <div className="flex items-center justify-between">
                     <span className="text-muted">Subtotal</span>
-                    <motion.span key={subtotal} initial={{ scale: 1.08 }} animate={{ scale: 1 }} className="font-display text-2xl tabular-nums">{money(subtotal)}</motion.span>
+                    <m.span key={subtotal} initial={{ scale: 1.08 }} animate={{ scale: 1 }} className="font-display text-2xl tabular-nums">{money(subtotal)}</m.span>
                   </div>
                   <p className="text-xs text-muted">Shipping, taxes and promo codes are calculated at checkout.</p>
                   <ButtonLink href="/checkout" onClick={() => setCart(false)} size="lg" className="w-full">Secure checkout</ButtonLink>
@@ -140,7 +140,7 @@ export function CartDrawer() {
                 </div>
               </>
             )}
-          </motion.aside>
+          </m.aside>
         </>
       )}
     </AnimatePresence>

@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,7 +22,7 @@ export function AdminLoginForm({ next, demo }: { next: string; demo: boolean }) 
   return (
     <main id="main" className="relative grid min-h-dvh place-items-center overflow-hidden bg-[#140e0f] px-4">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,161,74,.25),transparent_60%)]" />
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative w-full max-w-md rounded-[2rem] border border-line bg-surface p-7 shadow-lift sm:p-9">
+      <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative w-full max-w-md rounded-[2rem] border border-line bg-surface p-7 shadow-lift sm:p-9">
         <div className="flex flex-col items-center text-center">
           <LogoBadge src="/brand/logo-badge.png" size={72} priority />
           <h1 className="mt-4 text-3xl">Store admin</h1>
@@ -31,11 +31,11 @@ export function AdminLoginForm({ next, demo }: { next: string; demo: boolean }) 
         <form onSubmit={submit} className="mt-7 space-y-4">
           <Field label="Email" htmlFor="ad-email"><Input id="ad-email" name="email" type="email" required autoComplete="username" defaultValue={demo ? "admin@giftsandsurprises.us" : ""} /></Field>
           <Field label="Password" htmlFor="ad-pw"><Input id="ad-pw" name="password" type="password" required autoComplete="current-password" /></Field>
-          {err && <motion.p role="alert" animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</motion.p>}
+          {err && <m.p role="alert" animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</m.p>}
           <Button type="submit" size="lg" className="w-full" loading={busy}><Lock size={16} /> Sign in</Button>
         </form>
         {demo && <p className="mt-5 rounded-2xl bg-amber-500/10 p-3 text-center text-xs text-amber-800 dark:text-amber-300">Demo credentials: <strong>admin@giftsandsurprises.us</strong> / <strong>Surprise2026!</strong><br />Set ADMIN_EMAIL and ADMIN_PASSWORD to change them.</p>}
-      </motion.div>
+      </m.div>
     </main>
   );
 }

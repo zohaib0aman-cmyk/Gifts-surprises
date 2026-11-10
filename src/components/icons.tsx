@@ -1,5 +1,5 @@
 "use client";
-import { animate, AnimatePresence, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
+import { animate, AnimatePresence, m, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import { useEffect, type SVGProps } from "react";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ export function CountUp({ value, className }: { value: number; className?: strin
     const c = animate(mv, value, { duration: 0.6, ease: [0.16, 1, 0.3, 1] });
     return () => c.stop();
   }, [value, mv, reduce]);
-  return <motion.span className={className}>{rounded}</motion.span>;
+  return <m.span className={className}>{rounded}</m.span>;
 }
 
 /* ------------------------------------------------------------ cart (bag) icon with bounce + badge */
@@ -21,7 +21,7 @@ export function CartIcon({ count, bump, className }: { count: number; bump: numb
   const reduce = useReducedMotion();
   return (
     <span className={cn("relative inline-flex", className)}>
-      <motion.svg
+      <m.svg
         key={bump}
         viewBox="0 0 24 24"
         className="h-[22px] w-[22px]"
@@ -36,11 +36,11 @@ export function CartIcon({ count, bump, className }: { count: number; bump: numb
         aria-hidden
       >
         <path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z" />
-        <motion.path d="M9 10V6.5a3 3 0 0 1 6 0V10" animate={bump && !reduce ? { y: [0, -2, 0] } : {}} transition={{ duration: 0.5 }} />
-      </motion.svg>
+        <m.path d="M9 10V6.5a3 3 0 0 1 6 0V10" animate={bump && !reduce ? { y: [0, -2, 0] } : {}} transition={{ duration: 0.5 }} />
+      </m.svg>
       <AnimatePresence>
         {count > 0 && (
-          <motion.span
+          <m.span
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
@@ -48,7 +48,7 @@ export function CartIcon({ count, bump, className }: { count: number; bump: numb
             className="absolute -right-2.5 -top-2 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-rose px-1 text-[10px] font-bold leading-none text-white ring-2 ring-bg"
           >
             <CountUp value={count} />
-          </motion.span>
+          </m.span>
         )}
       </AnimatePresence>
     </span>
@@ -56,43 +56,23 @@ export function CartIcon({ count, bump, className }: { count: number; bump: numb
 }
 
 /* ------------------------------------------------------------ heart with fill pop + burst */
-/** `burst` should increment each time the user toggles the heart on. */
+/** CSS-only animated heart (cheap enough to render on every product card). `burst` increments when toggled on. */
+const HEART = "M12 20.5s-7.5-4.6-9.4-9.3C1.2 7.9 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.7 3.4 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3Z";
 export function HeartIcon({ active, burst = 0, size = 20, className }: { active: boolean; burst?: number; size?: number; className?: string }) {
-  const reduce = useReducedMotion();
   return (
     <span className={cn("relative inline-grid place-items-center", className)} style={{ width: size, height: size }}>
-      <motion.svg viewBox="0 0 24 24" width={size} height={size} animate={active && !reduce && burst ? { scale: [1, 0.6, 1.35, 0.95, 1] } : { scale: 1 }} transition={{ duration: 0.5 }} key={burst} aria-hidden>
-        <path d="M12 20.5s-7.5-4.6-9.4-9.3C1.2 7.9 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.7 3.4 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3Z" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" />
-        <motion.path
-          d="M12 20.5s-7.5-4.6-9.4-9.3C1.2 7.9 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.7 3.4 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3Z"
-          fill="var(--rose)"
-          stroke="var(--rose)"
-          strokeWidth={1.7}
-          initial={false}
-          animate={{ scale: active ? 1 : 0, opacity: active ? 1 : 0 }}
-          style={{ transformOrigin: "12px 12px" }}
-          transition={{ type: "spring", stiffness: 520, damping: 18 }}
-        />
-      </motion.svg>
-      <AnimatePresence>
-        {!reduce && burst > 0 && active && (
-          <motion.span key={burst} className="pointer-events-none absolute inset-0" initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 0.7, delay: 0.25 }}>
-            {Array.from({ length: 8 }).map((_, i) => {
-              const a = (i / 8) * Math.PI * 2;
-              return (
-                <motion.span
-                  key={i}
-                  className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full"
-                  style={{ background: i % 2 ? "var(--rose)" : "var(--gold)", marginLeft: -3, marginTop: -3 }}
-                  initial={{ x: 0, y: 0, scale: 1 }}
-                  animate={{ x: Math.cos(a) * size * 0.95, y: Math.sin(a) * size * 0.95, scale: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                />
-              );
-            })}
-          </motion.span>
-        )}
-      </AnimatePresence>
+      <svg key={burst} viewBox="0 0 24 24" width={size} height={size} className={burst && active ? "heart-pop" : undefined} aria-hidden>
+        <path d={HEART} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" />
+        <path d={HEART} fill="var(--rose)" stroke="var(--rose)" strokeWidth={1.7} className="heart-fill" data-on={active ? "" : undefined} />
+      </svg>
+      {burst > 0 && active && (
+        <span key={`b${burst}`} className="pointer-events-none absolute inset-0" aria-hidden>
+          {Array.from({ length: 8 }).map((_, i) => {
+            const a = (i / 8) * Math.PI * 2;
+            return <span key={i} className="heart-burst absolute left-1/2 top-1/2 -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full" style={{ background: i % 2 ? "var(--rose)" : "var(--gold)", "--dx": `${Math.cos(a) * size * 0.95}px`, "--dy": `${Math.sin(a) * size * 0.95}px` } as React.CSSProperties} />;
+          })}
+        </span>
+      )}
     </span>
   );
 }
@@ -102,9 +82,9 @@ export function MenuIcon({ open }: { open: boolean }) {
   const t = { type: "spring" as const, stiffness: 380, damping: 26 };
   return (
     <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" aria-hidden>
-      <motion.line x1="4" x2="20" initial={false} animate={open ? { y1: 12, y2: 12, rotate: 45 } : { y1: 7, y2: 7, rotate: 0 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
-      <motion.line x1="4" x2="20" y1="12" y2="12" initial={false} animate={{ opacity: open ? 0 : 1, scaleX: open ? 0.2 : 1 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
-      <motion.line x1="4" x2="20" initial={false} animate={open ? { y1: 12, y2: 12, rotate: -45 } : { y1: 17, y2: 17, rotate: 0 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
+      <m.line x1="4" x2="20" initial={false} animate={open ? { y1: 12, y2: 12, rotate: 45 } : { y1: 7, y2: 7, rotate: 0 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
+      <m.line x1="4" x2="20" y1="12" y2="12" initial={false} animate={{ opacity: open ? 0 : 1, scaleX: open ? 0.2 : 1 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
+      <m.line x1="4" x2="20" initial={false} animate={open ? { y1: 12, y2: 12, rotate: -45 } : { y1: 17, y2: 17, rotate: 0 }} style={{ transformOrigin: "12px 12px" }} transition={t} />
     </svg>
   );
 }
@@ -113,9 +93,9 @@ export function MenuIcon({ open }: { open: boolean }) {
 export function DrawCheck({ size = 96, className, delay = 0 }: { size?: number; className?: string; delay?: number }) {
   return (
     <svg viewBox="0 0 100 100" width={size} height={size} className={className} aria-hidden>
-      <motion.circle cx="50" cy="50" r="44" fill="none" stroke="var(--gold)" strokeWidth="4" strokeLinecap="round" initial={{ pathLength: 0, rotate: -90 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay, ease: [0.65, 0, 0.35, 1] }} style={{ transformOrigin: "50% 50%" }} />
-      <motion.circle cx="50" cy="50" r="36" fill="var(--gold)" opacity={0.12} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: delay + 0.5, type: "spring", stiffness: 200, damping: 14 }} style={{ transformOrigin: "50% 50%" }} />
-      <motion.path d="M31 52 L45 65 L70 37" fill="none" stroke="var(--gold-ink)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: delay + 0.7, ease: "easeOut" }} />
+      <m.circle cx="50" cy="50" r="44" fill="none" stroke="var(--gold)" strokeWidth="4" strokeLinecap="round" initial={{ pathLength: 0, rotate: -90 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay, ease: [0.65, 0, 0.35, 1] }} style={{ transformOrigin: "50% 50%" }} />
+      <m.circle cx="50" cy="50" r="36" fill="var(--gold)" opacity={0.12} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: delay + 0.5, type: "spring", stiffness: 200, damping: 14 }} style={{ transformOrigin: "50% 50%" }} />
+      <m.path d="M31 52 L45 65 L70 37" fill="none" stroke="var(--gold-ink)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: delay + 0.7, ease: "easeOut" }} />
     </svg>
   );
 }

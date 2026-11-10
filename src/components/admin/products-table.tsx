@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { FileUp, Plus, Search, Upload, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,8 +12,8 @@ import { cn, money } from "@/lib/utils";
 
 const stockOf = (p: Product) => (p.variants?.options.length ? p.variants.options.reduce((a, o) => a + o.stock, 0) : p.stock);
 const SAMPLE = `name,slug,subtitle,description,price,compare_at_price,category,occasions,recipients,tags,stock,image_urls,status,delivery_days
-Lavender Dreams Bouquet,lavender-dreams-bouquet,Lilac roses & lavender,Soft lilac roses with dried lavender in a pastel wrap.,85,,flowers,birthday|thank-you,her|mom,roses|lavender,20,/products/garden-party-mixed-bouquet-2.svg,active,1
-Chocolate Lover's Crate,chocolate-lovers-crate,Truffles brownies & cocoa,A crate of artisan chocolate treats.,64,72,cakes-sweets,thank-you|christmas,friends|colleagues,chocolate,35,/products/belgian-truffle-collection-2.svg,active,2`;
+Lavender Dreams Bouquet,lavender-dreams-bouquet,Lilac roses & lavender,Soft lilac roses with dried lavender in a pastel wrap.,85,,flowers,birthday|thank-you,her|mom,roses|lavender,20,/products/garden-party-mixed-bouquet-2.webp,active,1
+Chocolate Lover's Crate,chocolate-lovers-crate,Truffles brownies & cocoa,A crate of artisan chocolate treats.,64,72,cakes-sweets,thank-you|christmas,friends|colleagues,chocolate,35,/products/belgian-truffle-collection-2.webp,active,2`;
 
 function CsvImport({ onClose }: { onClose: () => void }) {
   const [csv, setCsv] = useState("");
@@ -31,8 +31,8 @@ function CsvImport({ onClose }: { onClose: () => void }) {
   };
   return (
     <>
-      <motion.div className="fixed inset-0 z-50 bg-black/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
-      <motion.div role="dialog" aria-modal="true" aria-label="Bulk upload products" className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[90dvh] max-w-2xl flex-col rounded-t-[2rem] bg-surface shadow-lift sm:inset-y-10 sm:bottom-auto sm:rounded-[2rem]" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }}>
+      <m.div className="fixed inset-0 z-50 bg-black/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+      <m.div role="dialog" aria-modal="true" aria-label="Bulk upload products" className="fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[90dvh] max-w-2xl flex-col rounded-t-[2rem] bg-surface shadow-lift sm:inset-y-10 sm:bottom-auto sm:rounded-[2rem]" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }}>
         <div className="flex items-center justify-between border-b border-line p-5"><h2 className="font-display text-2xl">Bulk upload (CSV)</h2><button onClick={onClose} aria-label="Close" className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface-2"><X size={18} /></button></div>
         <div className="space-y-4 overflow-y-auto p-5">
           <p className="text-sm text-muted">Columns: <code className="text-xs">name, slug, subtitle, description, price, compare_at_price, category, occasions, recipients, tags, stock, image_urls, status, delivery_days</code>. Use <code>|</code> to separate multiple values. Existing slugs are updated.</p>
@@ -52,7 +52,7 @@ function CsvImport({ onClose }: { onClose: () => void }) {
           <Button variant="outline" className="flex-1" disabled={!csv.trim()} loading={busy && !preview} onClick={() => run(true)}>Preview</Button>
           <Button className="flex-1" disabled={!preview || preview.every((p) => p.action === "error")} loading={busy && !!preview} onClick={() => run(false)}><Upload size={16} /> Import {preview ? preview.filter((p) => p.action !== "error").length : ""}</Button>
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 }

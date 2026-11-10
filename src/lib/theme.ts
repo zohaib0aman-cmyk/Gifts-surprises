@@ -21,4 +21,4 @@ export function useTheme() {
 }
 
 /** Inline, render-blocking script that sets the theme before first paint (no flash). */
-export const themeScript = `(function(){try{var t=localStorage.getItem("${KEY}");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark"}}catch(e){}})()`;
+export const themeScript = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("${KEY}");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark"}}catch(e){}})()`;

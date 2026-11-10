@@ -5,13 +5,13 @@ import { PageHeader, Panel } from "@/components/admin/shell";
 import { StatusBadge } from "@/components/admin/status";
 import { ProductImage } from "@/components/product-image";
 import { listOrders, listProducts, productStock } from "@/lib/db";
-import { isoDate, money, STATUS_LABEL } from "@/lib/utils";
+import { isoDate, money, nowMs, STATUS_LABEL } from "@/lib/utils";
 
 const PAID = new Set(["paid", "processing", "shipped", "out_for_delivery", "delivered"]);
 
 export default async function Dashboard() {
   const [orders, products] = await Promise.all([listOrders(), listProducts({ includeInactive: true })]);
-  const now = Date.now();
+  const now = nowMs();
   const DAY = 86_400_000;
   const inRange = (o: { createdAt: string }, from: number, to: number) => { const t = Date.parse(o.createdAt); return t >= now - from * DAY && t < now - to * DAY; };
   const net = (o: (typeof orders)[number]) => o.total + o.giftCardApplied - (o.refundedAmount ?? 0);

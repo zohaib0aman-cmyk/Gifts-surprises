@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export function TrackForm() {
     <form onSubmit={submit} className="mt-10 space-y-4 rounded-[2rem] border border-line bg-surface p-6 shadow-soft sm:p-8">
       <Field label="Order number" htmlFor="t-num"><Input id="t-num" name="number" required placeholder="GS-10234" autoComplete="off" className="uppercase placeholder:normal-case" /></Field>
       <Field label="Email" htmlFor="t-email"><Input id="t-email" name="email" type="email" required placeholder="you@example.com" autoComplete="email" /></Field>
-      {err && <motion.p role="alert" initial={{ x: 0 }} animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</motion.p>}
+      {err && <m.p role="alert" initial={{ x: 0 }} animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</m.p>}
       <Button type="submit" size="lg" loading={busy} className="w-full"><Search size={17} /> Track order</Button>
     </form>
   );

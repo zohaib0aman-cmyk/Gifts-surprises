@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ShopView } from "@/components/shop-view";
 import { parseFilters } from "@/lib/shop-filters";
 import { CATEGORIES, OCCASIONS, RECIPIENTS } from "@/data/catalog";
-import { listProducts } from "@/lib/db";
+import { listProducts, slimProduct } from "@/lib/db";
 
 type SP = Record<string, string | string[] | undefined>;
 const first = (sp: SP, k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] ?? null : v ?? null; };
@@ -23,7 +23,7 @@ export async function generateMetadata({ searchParams }: PageProps<"/shop">): Pr
 
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   const sp = await searchParams;
-  const products = await listProducts();
+  const products = (await listProducts()).map((p) => ({ ...slimProduct(p), description: p.description.slice(0, 160) }));
   const initial = parseFilters((k) => first(sp, k), (k) => all(sp, k));
   return <ShopView products={products} initial={initial} title={titleFor(sp) ?? "All gifts"} />;
 }

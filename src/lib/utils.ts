@@ -25,6 +25,9 @@ export function addDeliveryDays(from: Date, days: number) {
   return d;
 }
 
+/** Current time — wrapped so request-time rendering reads intentionally from the clock. */
+export const nowMs = () => Date.now();
+
 export const isoDate = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
 export const STATUS_LABEL: Record<string, string> = {

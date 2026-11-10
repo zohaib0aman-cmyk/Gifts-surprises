@@ -2,7 +2,7 @@
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import type { Stripe } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js/pure";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { CreditCard, Fingerprint, Lock, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -102,8 +102,8 @@ function WalletSheet({ kind, total, onAuthorize, onCancel }: { kind: "apple_pay"
   const title = { apple_pay: "Apple Pay", google_pay: "Google Pay", paypal: "PayPal" }[kind];
   return (
     <>
-      <motion.div className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onCancel} />
-      <motion.div role="dialog" aria-modal="true" aria-label={`${title} (test mode)`} className="fixed inset-x-0 bottom-0 z-[91] mx-auto max-w-md rounded-t-[2rem] bg-surface p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-lift" initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 320, damping: 32 }}>
+      <m.div className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onCancel} />
+      <m.div role="dialog" aria-modal="true" aria-label={`${title} (test mode)`} className="fixed inset-x-0 bottom-0 z-[91] mx-auto max-w-md rounded-t-[2rem] bg-surface p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-lift" initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 320, damping: 32 }}>
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-line" />
         <div className="flex items-center justify-between">
           <p className="font-display text-2xl">{title}</p>
@@ -116,18 +116,18 @@ function WalletSheet({ kind, total, onAuthorize, onCancel }: { kind: "apple_pay"
         </div>
         <AnimatePresence mode="wait">
           {stage === "confirm" ? (
-            <motion.div key="c" exit={{ opacity: 0 }} className="mt-5 grid grid-cols-2 gap-3">
+            <m.div key="c" exit={{ opacity: 0 }} className="mt-5 grid grid-cols-2 gap-3">
               <Button variant="outline" onClick={onCancel}>Cancel</Button>
               <Button onClick={() => { setStage("auth"); setTimeout(onAuthorize, 1300); }} className={kind === "paypal" ? "!bg-[#ffc439] !text-[#111]" : ""}>{kind === "paypal" ? "Pay now" : "Confirm"}</Button>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div key="a" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mt-6 flex flex-col items-center gap-2">
-              <motion.span animate={{ scale: [1, 1.12, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="grid h-16 w-16 place-items-center rounded-full bg-blush text-gold-ink"><Fingerprint size={30} /></motion.span>
+            <m.div key="a" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mt-6 flex flex-col items-center gap-2">
+              <m.span animate={{ scale: [1, 1.12, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="grid h-16 w-16 place-items-center rounded-full bg-blush text-gold-ink"><Fingerprint size={30} /></m.span>
               <p className="text-sm text-muted">Authorizing…</p>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
     </>
   );
 }

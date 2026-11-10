@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
@@ -17,10 +17,10 @@ export function FaqList({ groups }: { groups: { title: string; items: { q: strin
                 <li key={it.q}>
                   <button type="button" onClick={() => setOpen(isOpen ? null : it.q)} aria-expanded={isOpen} className="flex min-h-16 w-full items-center justify-between gap-4 py-4 text-left font-semibold">
                     {it.q}
-                    <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface-2"><Plus size={16} /></motion.span>
+                    <m.span animate={{ rotate: isOpen ? 45 : 0 }} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface-2"><Plus size={16} /></m.span>
                   </button>
                   <AnimatePresence initial={false}>
-                    {isOpen && <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><p className="pb-5 pr-10 text-sm leading-relaxed text-muted">{it.a}</p></motion.div>}
+                    {isOpen && <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><p className="pb-5 pr-10 text-sm leading-relaxed text-muted">{it.a}</p></m.div>}
                   </AnimatePresence>
                 </li>
               );

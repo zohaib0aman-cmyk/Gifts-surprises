@@ -9,7 +9,7 @@ import { PurchasePanel } from "@/components/product/purchase-panel";
 import { ReviewsBlock } from "@/components/product/reviews";
 import { Container, SectionHeading } from "@/components/ui";
 import { CATEGORIES } from "@/data/catalog";
-import { getProductBySlug, getSettings, listProducts, listReviews, productStock } from "@/lib/db";
+import { getProductBySlug, getSettings, listProducts, listReviews, productStock, slimProduct } from "@/lib/db";
 
 export async function generateMetadata({ params }: PageProps<"/product/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/product/[slug]">)
     title: p.name,
     description: `${p.subtitle}. ${p.description.slice(0, 120)}…`,
     alternates: { canonical: `/product/${p.slug}` },
-    openGraph: { title: p.name, description: p.subtitle, images: [{ url: `/product/${p.slug}/opengraph-image` }], type: "website" },
+    openGraph: { title: p.name, description: p.subtitle, type: "website" },
   };
 }
 
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
     .map((x) => ({ x, s: (x.category === p.category ? 3 : 0) + x.occasions.filter((o) => p.occasions.includes(o)).length + x.recipients.filter((r) => p.recipients.includes(r)).length }))
     .sort((a, b) => b.s - a.s)
     .slice(0, 4)
-    .map((r) => r.x);
+    .map((r) => slimProduct(r.x));
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const prices = p.variants?.options.map((o) => o.price) ?? [p.price];
   const ld = {

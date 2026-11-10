@@ -1,5 +1,7 @@
 "use client";
-import { MotionConfig } from "framer-motion";
+import { LazyMotion, MotionConfig } from "framer-motion";
+
+const loadFeatures = () => import("@/lib/motion-features").then((r) => r.default);
 import { createContext, useContext, type ReactNode } from "react";
 import type { SiteSettings } from "@/lib/types";
 
@@ -14,8 +16,10 @@ export const useSettings = () => {
 
 export function Providers({ settings, children }: { settings: PublicSettings; children: ReactNode }) {
   return (
-    <MotionConfig reducedMotion="user">
-      <Ctx.Provider value={settings}>{children}</Ctx.Provider>
-    </MotionConfig>
+    <LazyMotion features={loadFeatures}>
+      <MotionConfig reducedMotion="user">
+        <Ctx.Provider value={settings}>{children}</Ctx.Provider>
+      </MotionConfig>
+    </LazyMotion>
   );
 }

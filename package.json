@@ -1,12 +1,16 @@
 {
-  "name": "app",
+  "name": "gifts-surprises-usa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test --trace off",
+    "art": "node scripts/generate-product-art.mjs && node scripts/rasterize-product-art.mjs && node -e \"for (const f of require('fs').readdirSync('public/products')) if (f.endsWith('.svg')||f==='.generated') require('fs').rmSync('public/products/'+f)\"",
+    "reset-demo": "node -e \"require('fs').rmSync('.data',{recursive:true,force:true})\""
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^7.0.1",
@@ -27,6 +31,7 @@
     "zustand": "^5.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",

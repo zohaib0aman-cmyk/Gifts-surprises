@@ -1,12 +1,12 @@
 import type { Category, Product, Taxon } from "@/lib/types";
 
 export const CATEGORIES: Category[] = [
-  { slug: "flowers", name: "Flowers & Bouquets", tagline: "Fresh roses, hatboxes and forever blooms", image: "/products/crimson-velvet-rose-bouquet-1.svg" },
-  { slug: "gift-boxes", name: "Gift Boxes & Hampers", tagline: "Curated boxes, wrapped by hand", image: "/products/signature-gold-gift-box-1.svg" },
-  { slug: "cakes-sweets", name: "Cakes & Sweets", tagline: "Celebration cakes, truffles & treats", image: "/products/red-velvet-rose-celebration-cake-1.svg" },
-  { slug: "teddy-balloons", name: "Teddy Bears & Balloons", tagline: "Cuddles, balloons and big smiles", image: "/products/be-mine-heart-teddy-1.svg" },
-  { slug: "personalized", name: "Personalized Gifts", tagline: "Engraved, monogrammed, one of a kind", image: "/products/engraved-heart-necklace-1.svg" },
-  { slug: "surprise-packages", name: "Surprise Packages", tagline: "We plan it, set it up and film the moment", image: "/products/ultimate-birthday-surprise-setup-1.svg" },
+  { slug: "flowers", name: "Flowers & Bouquets", tagline: "Fresh roses, hatboxes and forever blooms", image: "/products/crimson-velvet-rose-bouquet-1.webp" },
+  { slug: "gift-boxes", name: "Gift Boxes & Hampers", tagline: "Curated boxes, wrapped by hand", image: "/products/signature-gold-gift-box-1.webp" },
+  { slug: "cakes-sweets", name: "Cakes & Sweets", tagline: "Celebration cakes, truffles & treats", image: "/products/red-velvet-rose-celebration-cake-1.webp" },
+  { slug: "teddy-balloons", name: "Teddy Bears & Balloons", tagline: "Cuddles, balloons and big smiles", image: "/products/be-mine-heart-teddy-1.webp" },
+  { slug: "personalized", name: "Personalized Gifts", tagline: "Engraved, monogrammed, one of a kind", image: "/products/engraved-heart-necklace-1.webp" },
+  { slug: "surprise-packages", name: "Surprise Packages", tagline: "We plan it, set it up and film the moment", image: "/products/ultimate-birthday-surprise-setup-1.webp" },
 ];
 
 export const OCCASIONS: Taxon[] = [
@@ -33,7 +33,7 @@ export const RECIPIENTS: Taxon[] = [
   { slug: "colleagues", name: "For Colleagues", emoji: "💼" },
 ];
 
-const img = (slug: string) => [1, 2, 3].map((n) => `/products/${slug}-${n}.svg`);
+const img = (slug: string) => [1, 2, 3].map((n) => `/products/${slug}-${n}.webp`);
 const t0 = Date.parse("2026-06-01T12:00:00Z");
 const day = 86_400_000;
 

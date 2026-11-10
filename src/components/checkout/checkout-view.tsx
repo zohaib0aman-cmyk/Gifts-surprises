@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowLeft, Check, Lock, Pencil, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,9 +29,9 @@ const CARRIER_STYLE: Record<string, string> = { usps: "bg-[#333366] text-white",
 function StepHeader({ n, title, done, onEdit }: { n: number; title: string; done?: boolean; onEdit?: () => void }) {
   return (
     <div className="mb-5 flex items-center gap-3">
-      <motion.span className={cn("grid h-8 w-8 place-items-center rounded-full text-sm font-bold", done ? "bg-gold text-[#2a1d06]" : "bg-ink text-on-ink")} animate={{ scale: done ? [1, 1.2, 1] : 1 }}>
+      <m.span className={cn("grid h-8 w-8 place-items-center rounded-full text-sm font-bold", done ? "bg-gold text-[#2a1d06]" : "bg-ink text-on-ink")} animate={{ scale: done ? [1, 1.2, 1] : 1 }}>
         {done ? <Check size={16} strokeWidth={3} /> : n}
-      </motion.span>
+      </m.span>
       <h2 className="flex-1 font-display text-2xl">{title}</h2>
       {done && onEdit && <button type="button" onClick={onEdit} className="flex min-h-11 items-center gap-1 px-2 text-sm font-semibold text-gold-ink"><Pencil size={14} /> Edit</button>}
     </div>
@@ -150,8 +150,8 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
                   return (
                     <label key={r.id} className={cn("relative flex min-h-16 cursor-pointer items-center gap-3 rounded-2xl border p-3.5 transition sm:gap-4", sel ? "border-ink" : "border-line hover:border-gold")}>
                       <input type="radio" name="rate" value={r.id} checked={sel} onChange={() => { setRateId(r.id); if (pay) setPay(null); }} className="sr-only" />
-                      {sel && <motion.span layoutId="rate-pill" className="absolute inset-0 rounded-2xl bg-blush/70" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
-                      <span className={cn("relative grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", sel ? "border-ink" : "border-line")}>{sel && <motion.span layoutId="rate-dot" className="h-2.5 w-2.5 rounded-full bg-ink" />}</span>
+                      {sel && <m.span layoutId="rate-pill" className="absolute inset-0 rounded-2xl bg-blush/70" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
+                      <span className={cn("relative grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", sel ? "border-ink" : "border-line")}>{sel && <m.span layoutId="rate-dot" className="h-2.5 w-2.5 rounded-full bg-ink" />}</span>
                       <span className={cn("relative grid h-9 w-14 shrink-0 place-items-center rounded-lg text-[0.65rem] font-black tracking-wider", CARRIER_STYLE[r.carrier])}>{r.carrier.toUpperCase()}</span>
                       <span className="relative min-w-0 flex-1"><span className="block text-sm font-semibold">{r.name}</span><span className="block text-xs text-muted">{r.eta}</span></span>
                       <span className="relative text-sm font-semibold tabular-nums">{shown === 0 ? <span className="text-emerald-700 dark:text-emerald-400">Free</span> : money(shown)}</span>
@@ -167,7 +167,7 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
             <div id="s4"><StepHeader n={needsShipping ? 4 : 3} title="Payment" /></div>
             <AnimatePresence mode="wait">
               {!pay ? (
-                <motion.div key="start" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
+                <m.div key="start" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
                   <p className="text-sm text-muted">Pay with card, Apple Pay, Google Pay or PayPal. You&apos;ll review the total before anything is charged.</p>
                   <ExpressButtons disabled={submitting} onPick={(k) => startPayment(k === "paypal" ? "paypal" : "card")} />
                   {serverError && <p role="alert" className="rounded-2xl bg-rose/10 p-3 text-sm text-rose">{serverError}</p>}
@@ -175,13 +175,13 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
                     <Lock size={16} /> Continue to payment{quote ? ` · ${money(quote.total)}` : ""}
                   </Button>
                   <p className="text-center text-xs text-muted">By continuing you agree to our <Link href="/policies/terms" className="underline">Terms</Link> and <Link href="/policies/refunds" className="underline">Refund Policy</Link>.</p>
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div key="pay" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
+                <m.div key="pay" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
                   <div className="flex rounded-full bg-surface-2 p-1" role="tablist" aria-label="Payment method">
                     {(["card", "paypal"] as const).map((t) => (
                       <button key={t} role="tab" aria-selected={payTab === t} onClick={() => setPayTab(t)} className="relative h-11 flex-1 rounded-full text-sm font-semibold">
-                        {payTab === t && <motion.span layoutId="pay-tab" className="absolute inset-0 rounded-full bg-surface shadow-soft" />}
+                        {payTab === t && <m.span layoutId="pay-tab" className="absolute inset-0 rounded-full bg-surface shadow-soft" />}
                         <span className="relative">{t === "card" ? "Card · Apple Pay · Google Pay" : "PayPal"}</span>
                       </button>
                     ))}
@@ -201,7 +201,7 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
                     </div>
                   )}
                   <button type="button" onClick={() => router.push(`/checkout/cancelled?order=${pay.orderId}`)} className="mx-auto block min-h-11 text-sm font-semibold text-muted underline-offset-4 hover:underline">Cancel payment</button>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </section>

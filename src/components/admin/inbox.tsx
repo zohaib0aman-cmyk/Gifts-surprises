@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, Mail, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -34,11 +34,11 @@ export function Inbox({ messages, emails, resend }: { messages: ContactMessage[]
       <AnimatePresence>
         {preview && (
           <>
-            <motion.div className="fixed inset-0 z-50 bg-black/50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPreview(null)} />
-            <motion.div role="dialog" aria-modal="true" aria-label="Email preview" className="fixed inset-x-2 bottom-2 top-10 z-50 mx-auto flex max-w-2xl flex-col overflow-hidden rounded-[2rem] bg-surface shadow-lift" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }}>
+            <m.div className="fixed inset-0 z-50 bg-black/50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPreview(null)} />
+            <m.div role="dialog" aria-modal="true" aria-label="Email preview" className="fixed inset-x-2 bottom-2 top-10 z-50 mx-auto flex max-w-2xl flex-col overflow-hidden rounded-[2rem] bg-surface shadow-lift" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 40, opacity: 0 }}>
               <div className="flex items-center justify-between gap-3 border-b border-line p-4"><p className="truncate text-sm font-semibold">{preview.subject}</p><button onClick={() => setPreview(null)} aria-label="Close preview" className="grid h-11 w-11 shrink-0 place-items-center rounded-full hover:bg-surface-2"><X size={18} /></button></div>
               <iframe title="Email preview" srcDoc={preview.html} sandbox="" className="h-full w-full bg-white" />
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

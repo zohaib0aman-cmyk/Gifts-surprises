@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Heart, LogOut, MapPin, Pencil, Plus, Star, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -34,15 +34,15 @@ export function AuthForm({ initialMode = "login", next = "/account", email: init
   return (
     <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-soft sm:p-8">
       <div className="mb-6 flex rounded-full bg-surface-2 p-1" role="tablist">
-        {(["login", "signup"] as const).map((m) => (
-          <button key={m} role="tab" aria-selected={mode === m} onClick={() => { setMode(m); setErr(""); }} className="relative h-11 flex-1 rounded-full text-sm font-semibold">
-            {mode === m && <motion.span layoutId="auth-tab" className="absolute inset-0 rounded-full bg-surface shadow-soft" />}
-            <span className="relative">{m === "login" ? "Sign in" : "Create account"}</span>
+        {(["login", "signup"] as const).map((md) => (
+          <button key={md} role="tab" aria-selected={mode === md} onClick={() => { setMode(md); setErr(""); }} className="relative h-11 flex-1 rounded-full text-sm font-semibold">
+            {mode === md && <m.span layoutId="auth-tab" className="absolute inset-0 rounded-full bg-surface shadow-soft" />}
+            <span className="relative">{md === "login" ? "Sign in" : "Create account"}</span>
           </button>
         ))}
       </div>
       <AnimatePresence mode="wait">
-        <motion.form key={mode} onSubmit={submit} initial={{ opacity: 0, x: mode === "login" ? -20 : 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} className="space-y-4">
+        <m.form key={mode} onSubmit={submit} initial={{ opacity: 0, x: mode === "login" ? -20 : 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} className="space-y-4">
           {mode === "signup" && (
             <div className="grid grid-cols-2 gap-3">
               <Field label="First name" htmlFor="a-fn"><Input id="a-fn" name="firstName" required autoComplete="given-name" /></Field>
@@ -52,10 +52,10 @@ export function AuthForm({ initialMode = "login", next = "/account", email: init
           <Field label="Email" htmlFor="a-em"><Input id="a-em" name="email" type="email" required defaultValue={initialEmail} autoComplete="email" /></Field>
           <Field label="Password" htmlFor="a-pw" hint={mode === "signup" ? "At least 8 characters" : undefined}><Input id="a-pw" name="password" type="password" required minLength={mode === "signup" ? 8 : 1} autoComplete={mode === "login" ? "current-password" : "new-password"} /></Field>
           {mode === "signup" && <Checkbox name="marketing" defaultChecked label="Send me occasion reminders & member offers" />}
-          {err && <motion.p role="alert" animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</motion.p>}
+          {err && <m.p role="alert" animate={{ x: [0, -8, 8, -4, 0] }} className="text-sm text-rose">{err}</m.p>}
           <Button type="submit" size="lg" className="w-full" loading={busy}>{mode === "login" ? "Sign in" : "Create my account"}</Button>
           <p className="text-center text-xs text-muted">Or <Link href="/checkout" className="font-semibold text-gold-ink">check out as a guest</Link> — no account needed.</p>
-        </motion.form>
+        </m.form>
       </AnimatePresence>
     </div>
   );
@@ -91,7 +91,7 @@ export function AddressBook({ initial, states }: { initial: Address[]; states: {
       <div className="grid gap-4 sm:grid-cols-2">
         <AnimatePresence>
           {list.map((a, i) => (
-            <motion.div layout key={a.id ?? i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className={cn("rounded-3xl border bg-surface p-5", a.isDefault ? "border-gold" : "border-line")}>
+            <m.div layout key={a.id ?? i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className={cn("rounded-3xl border bg-surface p-5", a.isDefault ? "border-gold" : "border-line")}>
               <div className="flex items-center justify-between">
                 <p className="flex items-center gap-2 font-semibold"><MapPin size={16} className="text-gold-ink" /> {a.label || "Address"}</p>
                 {a.isDefault && <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-gold-ink">Default</span>}
@@ -102,7 +102,7 @@ export function AddressBook({ initial, states }: { initial: Address[]; states: {
                 {!a.isDefault && <button onClick={() => save(list.map((x, j) => ({ ...x, isDefault: j === i })))} className="flex min-h-10 items-center gap-1 rounded-full px-3 text-sm font-semibold hover:bg-surface-2"><Star size={14} /> Make default</button>}
                 <button onClick={() => save(list.filter((_, j) => j !== i))} className="flex min-h-10 items-center gap-1 rounded-full px-3 text-sm font-semibold text-rose hover:bg-rose/10"><Trash2 size={14} /> Remove</button>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
         {!editing && list.length < 10 && (
@@ -113,7 +113,7 @@ export function AddressBook({ initial, states }: { initial: Address[]; states: {
       </div>
       <AnimatePresence>
         {editing && (
-          <motion.form initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden"
+          <m.form initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden"
             onSubmit={async (e) => { e.preventDefault(); const next = editing.idx === -1 ? [...list, editing.a] : list.map((x, j) => (j === editing.idx ? editing.a : x)); if (await save(next)) setEditing(null); }}>
             <div className="grid grid-cols-2 gap-4 rounded-3xl border border-line bg-surface p-5 sm:p-6">
               <Field label="Label" htmlFor="ad-label" className="col-span-2"><Input id="ad-label" value={editing.a.label ?? ""} onChange={upd("label")} placeholder="Home, Mom's house…" /></Field>
@@ -127,7 +127,7 @@ export function AddressBook({ initial, states }: { initial: Address[]; states: {
               <Field label="Phone" htmlFor="ad-ph" className="col-span-2 sm:col-span-1"><Input id="ad-ph" type="tel" value={editing.a.phone ?? ""} onChange={upd("phone")} /></Field>
               <div className="col-span-2 flex gap-3"><Button type="submit" loading={busy}>Save address</Button><Button type="button" variant="ghost" onClick={() => setEditing(null)}>Cancel</Button></div>
             </div>
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>
@@ -142,21 +142,21 @@ export function WishlistGrid({ products }: { products: Product[] }) {
   if (!items.length)
     return (
       <div className="flex flex-col items-center rounded-[2rem] border border-dashed border-line bg-surface px-6 py-16 text-center">
-        <motion.span animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} className="grid h-20 w-20 place-items-center rounded-full bg-blush text-rose"><Heart size={34} /></motion.span>
+        <m.span animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} className="grid h-20 w-20 place-items-center rounded-full bg-blush text-rose"><Heart size={34} /></m.span>
         <h2 className="mt-5 font-display text-2xl">Your wishlist is empty</h2>
         <p className="mt-2 max-w-sm text-sm text-muted">Tap the heart on any gift to save it here for later — perfect for planning the next big surprise.</p>
         <ButtonLink href="/shop" className="mt-6">Discover gifts</ButtonLink>
       </div>
     );
   return (
-    <motion.div layout className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-4">
+    <m.div layout className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-4">
       <AnimatePresence>
         {items.map((p) => (
-          <motion.div layout key={p.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }}>
+          <m.div layout key={p.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }}>
             <ProductCard product={p} />
-          </motion.div>
+          </m.div>
         ))}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 }

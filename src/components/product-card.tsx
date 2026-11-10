@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { Plus, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -105,9 +104,9 @@ export function ProductCard({ product: p, priority, layout = "grid" }: { product
             <ShoppingBag size={16} /> {soldOut ? "Sold out" : "Quick add"}
           </button>
         </div>
-        <motion.button whileTap={{ scale: 0.85 }} type="button" disabled={soldOut} onClick={() => quickAdd(p)} aria-label={`Quick add ${p.name}`} className="absolute bottom-3 right-3 z-[3] grid h-11 w-11 place-items-center rounded-full bg-ink text-on-ink shadow-lift disabled:opacity-50 md:hidden">
+        <button type="button" disabled={soldOut} onClick={() => quickAdd(p)} aria-label={`Quick add ${p.name}`} className="absolute bottom-3 right-3 z-[3] grid h-11 w-11 place-items-center rounded-full bg-ink text-on-ink shadow-lift transition active:scale-[0.85] disabled:opacity-50 md:hidden">
           <Plus size={20} />
-        </motion.button>
+        </button>
       </div>
       <div className="mt-3.5 space-y-1 px-1">
         {p.reviewCount > 0 && (

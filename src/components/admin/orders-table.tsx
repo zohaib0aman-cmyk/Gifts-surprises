@@ -6,7 +6,7 @@ import { StatusBadge } from "./status";
 import { Input, Select } from "../ui";
 import { toCsv } from "@/lib/csv";
 import type { Order } from "@/lib/types";
-import { formatDate, money, STATUS_LABEL } from "@/lib/utils";
+import { formatDate, money, nowMs, STATUS_LABEL } from "@/lib/utils";
 
 export function OrdersTable({ orders }: { orders: Order[] }) {
   const [q, setQ] = useState("");
@@ -17,7 +17,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
     const days = range === "all" ? Infinity : Number(range);
     return orders.filter((o) =>
       (status === "all" || o.status === status) &&
-      Date.now() - Date.parse(o.createdAt) <= days * 86_400_000 &&
+      nowMs() - Date.parse(o.createdAt) <= days * 86_400_000 &&
       (!t || `${o.number} ${o.email} ${o.shippingAddress.firstName} ${o.shippingAddress.lastName} ${o.shippingAddress.city}`.toLowerCase().includes(t)));
   }, [orders, q, status, range]);
   const exportCsv = () => {

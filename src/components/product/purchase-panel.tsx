@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { CalendarDays, Check, ChevronDown, Gift, MessageSquareHeart, ShieldCheck, ShoppingBag, Truck, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
@@ -60,10 +60,10 @@ function Accordion({ title, children, defaultOpen }: { title: string; children: 
   return (
     <div className="border-b border-line">
       <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="flex min-h-14 w-full items-center justify-between text-left font-display text-lg">
-        {title}<motion.span animate={{ rotate: open ? 180 : 0 }}><ChevronDown size={18} /></motion.span>
+        {title}<m.span animate={{ rotate: open ? 180 : 0 }}><ChevronDown size={18} /></m.span>
       </button>
       <AnimatePresence initial={false}>
-        {open && <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><div className="pb-5 text-sm leading-relaxed text-muted">{children}</div></motion.div>}
+        {open && <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden"><div className="pb-5 text-sm leading-relaxed text-muted">{children}</div></m.div>}
       </AnimatePresence>
     </div>
   );
@@ -116,11 +116,11 @@ export function PurchasePanel({ product: p, categoryName }: { product: Product; 
 
       <div className="flex flex-wrap items-center gap-3">
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.span key={price} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }}>
+          <m.span key={price} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }}>
             <Price value={price} compareAt={!variant || price === p.price ? p.compareAtPrice : undefined} size="lg" className="[&>span:first-child]:font-display [&>span:first-child]:text-3xl" />
-          </motion.span>
+          </m.span>
         </AnimatePresence>
-        <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold", soldOut ? "bg-rose/10 text-rose" : stock <= 5 ? "bg-amber-500/12 text-amber-700 dark:text-amber-400" : "bg-emerald-600/10 text-emerald-700 dark:text-emerald-400")}>
+        <span className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold", soldOut ? "bg-rose/10 text-rose" : stock <= 5 ? "bg-amber-500/12 text-amber-900 dark:text-amber-300" : "bg-emerald-600/10 text-emerald-800 dark:text-emerald-300")}>
           <span className={cn("h-1.5 w-1.5 rounded-full", soldOut ? "bg-rose" : stock <= 5 ? "animate-pulse bg-amber-500" : "bg-emerald-500")} />
           {soldOut ? "Sold out" : stock <= 5 ? `Only ${stock} left — order soon` : "In stock, ready to deliver"}
         </span>
@@ -136,7 +136,7 @@ export function PurchasePanel({ product: p, categoryName }: { product: Product; 
               return (
                 <button key={o.id} type="button" onClick={() => { setVariantId(o.id); setQty(1); }} aria-pressed={sel} disabled={o.stock <= 0}
                   className={cn("relative min-h-12 rounded-2xl border px-4 py-2 text-left text-sm transition disabled:cursor-not-allowed disabled:opacity-45", sel ? "border-ink" : "border-line hover:border-gold")}>
-                  {sel && <motion.span layoutId={`var-${p.id}`} className="absolute inset-0 rounded-2xl bg-blush" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
+                  {sel && <m.span layoutId={`var-${p.id}`} className="absolute inset-0 rounded-2xl bg-blush" transition={{ type: "spring", stiffness: 420, damping: 32 }} />}
                   <span className="relative block font-semibold">{o.label}</span>
                   <span className="relative block text-xs text-muted">{o.stock <= 0 ? "Sold out" : money(o.price)}</span>
                   {o.stock <= 0 && <span className="absolute inset-x-3 top-1/2 h-px -rotate-6 bg-muted/60" aria-hidden />}
@@ -153,7 +153,7 @@ export function PurchasePanel({ product: p, categoryName }: { product: Product; 
         <label className="flex min-h-12 cursor-pointer items-center gap-3">
           <input type="checkbox" checked={wrap} onChange={(e) => setWrap(e.target.checked)} className="peer sr-only" />
           <span className="grid h-6 w-6 shrink-0 place-items-center rounded-lg border border-line transition peer-checked:border-ink peer-checked:bg-ink peer-focus-visible:ring-4 peer-focus-visible:ring-gold/30">
-            <AnimatePresence>{wrap && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}><Check size={15} className="text-on-ink" /></motion.span>}</AnimatePresence>
+            <AnimatePresence>{wrap && <m.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}><Check size={15} className="text-on-ink" /></m.span>}</AnimatePresence>
           </span>
           <Gift size={18} className="text-gold-ink" />
           <span className="flex-1 text-sm"><strong>Luxury gift wrap</strong><span className="block text-xs text-muted">Black box, gold ribbon & wax seal</span></span>
@@ -171,13 +171,13 @@ export function PurchasePanel({ product: p, categoryName }: { product: Product; 
         <Button size="lg" onClick={() => doAdd()} disabled={soldOut} className="relative flex-1 overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
             {added ? (
-              <motion.span key="ok" className="flex items-center gap-2" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }}>
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round"><motion.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.35 }} /></svg> Added!
-              </motion.span>
+              <m.span key="ok" className="flex items-center gap-2" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }}>
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round"><m.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.35 }} /></svg> Added!
+              </m.span>
             ) : (
-              <motion.span key="add" className="flex items-center gap-2" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }}>
+              <m.span key="add" className="flex items-center gap-2" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }}>
                 <ShoppingBag size={18} /> {soldOut ? "Sold out" : `Add to bag · ${money(price * qty + (wrap ? giftWrapPrice * qty : 0))}`}
-              </motion.span>
+              </m.span>
             )}
           </AnimatePresence>
         </Button>

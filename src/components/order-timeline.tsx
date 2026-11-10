@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Check, ClipboardCheck, Gift, Home, Package, Truck, XCircle } from "lucide-react";
 import type { Order } from "@/lib/types";
 import { cn, STATUS_LABEL } from "@/lib/utils";
@@ -34,14 +34,14 @@ export function OrderTimeline({ order }: { order: Order }) {
           <li key={s.key} className="relative flex gap-4 pb-8 last:pb-0">
             {i < STEPS.length - 1 && (
               <span className="absolute left-[21px] top-11 h-[calc(100%-2.75rem)] w-0.5 overflow-hidden rounded bg-line" aria-hidden>
-                <motion.span className="gold-bg block w-full" initial={{ height: 0 }} animate={{ height: i < idx ? "100%" : "0%" }} transition={{ delay: 0.3 + i * 0.25, duration: 0.5 }} />
+                <m.span className="gold-bg block w-full" initial={{ height: 0 }} animate={{ height: i < idx ? "100%" : "0%" }} transition={{ delay: 0.3 + i * 0.25, duration: 0.5 }} />
               </span>
             )}
-            <motion.span initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.15 + i * 0.25, type: "spring", stiffness: 260, damping: 18 }}
+            <m.span initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.15 + i * 0.25, type: "spring", stiffness: 260, damping: 18 }}
               className={cn("relative z-[1] grid h-11 w-11 shrink-0 place-items-center rounded-full border-2", done ? "border-transparent bg-gold text-[#2a1d06]" : "border-line bg-surface text-muted")}>
               <s.icon size={19} />
               {current && <span className="absolute inset-0 animate-ping rounded-full bg-gold/40" aria-hidden />}
-            </motion.span>
+            </m.span>
             <div className="pt-1.5">
               <p className={cn("font-semibold", !done && "text-muted")}>{s.label}{current && <span className="ml-2 rounded-full bg-blush px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider">Current</span>}</p>
               <p className="text-sm text-muted">{t && done ? new Date(t).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : done ? "" : "Upcoming"}</p>

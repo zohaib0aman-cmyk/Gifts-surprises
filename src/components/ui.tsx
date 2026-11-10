@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { forwardRef, type ComponentProps, type ReactNode } from "react";
-import { Star } from "lucide-react";
 import { cn, money } from "@/lib/utils";
 
 /* ------------------------------------------------------------ button */
@@ -99,16 +98,11 @@ export function Badge({ children, tone = "default", className }: { children: Rea
 }
 
 export function Stars({ rating, size = 14, className }: { rating: number; size?: number; className?: string }) {
+  const pct = `${(Math.max(0, Math.min(5, rating)) / 5) * 100}%`;
   return (
-    <span className={cn("inline-flex items-center gap-0.5", className)} aria-label={`${rating.toFixed(1)} out of 5 stars`} role="img">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} className="relative inline-block" style={{ width: size, height: size }}>
-          <Star size={size} className="absolute inset-0 text-gold/30" fill="currentColor" strokeWidth={0} />
-          <span className="absolute inset-0 overflow-hidden" style={{ width: `${Math.max(0, Math.min(1, rating - i + 1)) * 100}%` }}>
-            <Star size={size} className="text-gold" fill="currentColor" strokeWidth={0} />
-          </span>
-        </span>
-      ))}
+    <span className={cn("relative inline-block whitespace-nowrap leading-none tracking-[0.08em]", className)} style={{ fontSize: size }} role="img" aria-label={`${rating.toFixed(1)} out of 5 stars`}>
+      <span className="text-gold/30" aria-hidden>★★★★★</span>
+      <span className="absolute inset-y-0 left-0 overflow-hidden text-gold" style={{ width: pct }} aria-hidden>★★★★★</span>
     </span>
   );
 }

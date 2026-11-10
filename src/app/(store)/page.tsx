@@ -1,10 +1,12 @@
 import { Hero } from "@/components/home/hero";
-import { GiftFinderQuiz, HowItWorks, InstagramFeed, Newsletter, OccasionGrid, ProductSection, RecipientRail, ReviewsSection } from "@/components/home/sections";
-import { getSettings, listProducts, listReviews } from "@/lib/db";
+import { GiftFinderQuiz, Newsletter } from "@/components/home/sections";
+import { HowItWorks, InstagramFeed, OccasionGrid, ProductSection, RecipientRail, ReviewsSection } from "@/components/home/static-sections";
+import { getSettings, listProducts, listReviews, slimProduct } from "@/lib/db";
 import type { HomeSectionKey } from "@/lib/types";
 
 export default async function HomePage() {
-  const [settings, products, reviews] = await Promise.all([getSettings(), listProducts(), listReviews()]);
+  const [settings, full, reviews] = await Promise.all([getSettings(), listProducts(), listReviews()]);
+  const products = full.map(slimProduct);
   const best = products.filter((p) => p.bestseller).slice(0, 8);
   const fresh = [...products].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 4);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -17,7 +19,7 @@ export default async function HomePage() {
     newArrivals: <ProductSection id="new-h" eyebrow="Just arrived" title="New arrivals" sub="Fresh designs for this season's celebrations." products={fresh} href="/shop?sort=newest" />,
     quiz: <GiftFinderQuiz products={products} />,
     reviews: <ReviewsSection reviews={reviews} products={products} />,
-    instagram: <InstagramFeed />,
+    instagram: <InstagramFeed instagram={settings.social.instagram} />,
     newsletter: <Newsletter />,
   };
 

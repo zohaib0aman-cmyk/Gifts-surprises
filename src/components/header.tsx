@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from "framer-motion";
 import { ChevronDown, Moon, Search, Sun, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,10 +26,10 @@ export function AnnouncementBar() {
   return (
     <div className="relative z-40 h-9 overflow-hidden bg-ink text-on-ink">
       <AnimatePresence mode="wait">
-        <motion.p key={i} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: 0.35 }} className="flex h-9 items-center justify-center px-4 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em]">
+        <m.p key={i} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: 0.35 }} className="flex h-9 items-center justify-center px-4 text-center text-[0.72rem] font-semibold uppercase tracking-[0.16em]">
           <span className="mr-2 text-gold" aria-hidden>✦</span>
           <span className="truncate">{msgs[i % msgs.length]}</span>
-        </motion.p>
+        </m.p>
       </AnimatePresence>
     </div>
   );
@@ -42,9 +42,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   return (
     <button type="button" onClick={() => setTheme(dark ? "light" : "dark")} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className={cn("grid h-11 w-11 place-items-center rounded-full transition hover:text-gold-ink", className)}>
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span key={dark ? "moon" : "sun"} initial={{ rotate: -90, scale: 0.4, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} exit={{ rotate: 90, scale: 0.4, opacity: 0 }} transition={{ duration: 0.25 }}>
+        <m.span key={dark ? "moon" : "sun"} initial={{ rotate: -90, scale: 0.4, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} exit={{ rotate: 90, scale: 0.4, opacity: 0 }} transition={{ duration: 0.25 }}>
           {dark ? <Moon size={19} /> : <Sun size={20} />}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </button>
   );
@@ -60,7 +60,7 @@ const NAV = [
 
 function MegaMenu({ onClose }: { onClose: () => void }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} className="absolute left-1/2 top-full z-50 mt-3 w-[min(880px,92vw)] -translate-x-1/2 rounded-[2rem] border border-line bg-surface p-8 shadow-lift">
+    <m.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.2 }} className="absolute left-1/2 top-full z-50 mt-3 w-[min(880px,92vw)] -translate-x-1/2 rounded-[2rem] border border-line bg-surface p-8 shadow-lift">
       <div className="grid grid-cols-3 gap-8">
         <div>
           <p className="mb-4 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-gold-ink">By occasion</p>
@@ -87,7 +87,7 @@ function MegaMenu({ onClose }: { onClose: () => void }) {
           </ul>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -164,19 +164,19 @@ export function MobileMenu() {
     <AnimatePresence>
       {menuOpen && (
         <>
-          <motion.div className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenu(false)} />
-          <motion.nav aria-label="Mobile" className="fixed inset-y-0 left-0 z-[56] flex w-[86vw] max-w-sm flex-col overflow-y-auto bg-surface pb-28 shadow-lift lg:hidden" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 36 }}>
+          <m.div className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenu(false)} />
+          <m.nav aria-label="Mobile" className="fixed inset-y-0 left-0 z-[56] flex w-[86vw] max-w-sm flex-col overflow-y-auto bg-surface pb-28 shadow-lift lg:hidden" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", stiffness: 340, damping: 36 }}>
             <div className="flex items-center justify-between border-b border-line p-4">
               <Logo logoUrl={settings.logoUrl} mode="badge+wordmark" />
               <button onClick={() => setMenu(false)} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface-2" aria-label="Close menu"><MenuIcon open /></button>
             </div>
-            <motion.ul className="p-3" initial="h" animate="s" variants={{ s: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } } }}>
+            <m.ul className="p-3" initial="h" animate="s" variants={{ s: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } } }}>
               {[{ label: "Home", href: "/" }, ...NAV.filter((n) => !n.mega), { label: "About us", href: "/about" }, { label: "Contact", href: "/contact" }].map((n) => (
-                <motion.li key={n.label} variants={{ h: { opacity: 0, x: -16 }, s: { opacity: 1, x: 0 } }}>
+                <m.li key={n.label} variants={{ h: { opacity: 0, x: -16 }, s: { opacity: 1, x: 0 } }}>
                   <Link href={n.href} className="flex min-h-12 items-center rounded-2xl px-3 font-display text-xl hover:bg-surface-2">{n.label}</Link>
-                </motion.li>
+                </m.li>
               ))}
-            </motion.ul>
+            </m.ul>
             <div className="px-6 pt-2">
               <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.22em] text-gold-ink">Shop by occasion</p>
               <div className="flex flex-wrap gap-2">
@@ -192,7 +192,7 @@ export function MobileMenu() {
                 <InstagramGlyph className="h-5 w-5" /> @gifts.surprises.usa
               </a>
             </div>
-          </motion.nav>
+          </m.nav>
         </>
       )}
     </AnimatePresence>
