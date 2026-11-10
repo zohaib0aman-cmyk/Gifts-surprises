@@ -1,6 +1,6 @@
 // Renders public/products/*.svg to high-quality WebP (cheap to paint, optimisable by next/image).
 // Requires Playwright's Chromium + Python Pillow. Run: node scripts/rasterize-product-art.mjs
-import { readdirSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readdirSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { createRequire } from "node:module";
