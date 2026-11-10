@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f6e3a1"/><stop offset=".45" stop-color="#c9a14a"/><stop offset=".7" stop-color="#e9cf7f"/><stop offset="1" stop-color="#9c7a2e"/>
+</linearGradient>
+<linearGradient id="goldV" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#f3dc92"/><stop offset=".5" stop-color="#c9a14a"/><stop offset="1" stop-color="#8f6d25"/>
+</linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset=".4" stop-color="#ffd27a" stop-opacity=".45"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity=".08"/><stop offset=".8" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+</linearGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="18"/></filter>
+<filter id="soft2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .05 0"/></filter>
+</defs>
+<radialGradient id="bg1" cx="0.5" cy=".38" r=".85">
+<stop offset="0" stop-color="#3d3437"/><stop offset=".6" stop-color="#231a1d"/><stop offset="1" stop-color="#0d0407"/>
+</radialGradient>
+<rect width="800" height="1000" fill="url(#bg1)"/>
+<path d="M0 780 Q 400 740 800 780 L 800 1000 L 0 1000 Z" fill="#11080b" opacity=".9"/>
+<ellipse cx="400" cy="800" rx="220" ry="26" fill="#2a1418" opacity="0.28" filter="url(#soft)"/>
+<path d="M200 520 L 230 250 L 570 250 L 600 520Z" fill="#61000b"/>
+<path d="M220 505 L 245 270 L 555 270 L 580 505Z" fill="#fbf4e6"/>
+<text x="400" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="22" letter-spacing="6" fill="#9c7a2e">GIFTS &amp; SURPRISES</text>
+<rect x="190" y="520" width="420" height="260" rx="14" fill="#7a0f24"/>
+<rect x="210" y="535" width="380" height="200" rx="12" fill="#8c2136"/>
+<rect x="190" y="740" width="420" height="10" fill="url(#gold)"/>
+<path d="M280 560 Q 400 700 520 560" stroke="url(#gold)" stroke-width="4" fill="none"/>
+<path d="M400 690 C 350 650 360 600 400 625 C 440 600 450 650 400 690Z" fill="url(#gold)" stroke="#7a5a1f" stroke-opacity=".3" transform="translate(0 -6)"/>
+<text x="400" y="652" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#7a5a1f">A</text>
+<circle cx="414" cy="618" r="4" fill="#fff"/>
+<path d="M3.3434245766544946 157.89278714907613 L5.748557090860379 166.4200751539879 L14.275845095772151 168.8252076681938 L5.748557090860379 171.2303401823997 L3.3434245766544946 179.75762818731147 L0.93829206244861 171.2303401823997 L-7.588995942463163 168.8252076681938 L0.93829206244861 166.4200751539879Z" fill="#fff4c9" opacity="0.95958522354214"/><path d="M398.1638222915715 639.7255988341994 L399.7518374194501 645.3558342875874 L405.3820728728381 646.943849415466 L399.7518374194501 648.5318645433447 L398.1638222915715 654.1620999967326 L396.57580716369284 648.5318645433447 L390.9455717103049 646.943849415466 L396.57580716369284 645.3558342875874Z" fill="#fff4c9" opacity="0.756879403727948"/><path d="M595.4245733054584 74.30340860160385 L598.4828139403302 85.14626176160412 L609.3256671003305 88.20450239647599 L598.4828139403302 91.26274303134785 L595.4245733054584 102.10559619134813 L592.3663326705865 91.26274303134785 L581.5234795105862 88.20450239647599 L592.3663326705865 85.14626176160412Z" fill="#fff4c9" opacity="0.6841713419967995"/><path d="M588.3958591040185 311.5697838538976 L590.9225879538642 320.5281861397141 L599.8809902396807 323.0549149895598 L590.9225879538642 325.5816438394055 L588.3958591040185 334.540046125222 L585.8691302541729 325.5816438394055 L576.9107279683564 323.0549149895598 L585.8691302541729 320.5281861397141Z" fill="#fff4c9" opacity="0.9299516204557863"/><path d="M315.0168775720679 64.14243040712776 L317.97358407865613 74.62529893048601 L328.4564526020144 77.58200543707423 L317.97358407865613 80.53871194366245 L315.0168775720679 91.0215804670207 L312.0601710654797 80.53871194366245 L301.57730254212146 77.58200543707423 L312.0601710654797 74.62529893048601Z" fill="#fff4c9" opacity="0.8468774173845326"/><path d="M750.0082883518266 504.5046074143654 L752.4580483795312 513.1901202398633 L761.1435612050291 515.6398802675678 L752.4580483795312 518.0896402952724 L750.0082883518266 526.7751531207703 L747.5585283241221 518.0896402952724 L738.8730154986242 515.6398802675678 L747.5585283241221 513.1901202398633Z" fill="#fff4c9" opacity="0.9265440922943354"/>
+</svg>

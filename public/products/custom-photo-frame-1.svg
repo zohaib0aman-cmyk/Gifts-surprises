@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#f6e3a1"/><stop offset=".45" stop-color="#c9a14a"/><stop offset=".7" stop-color="#e9cf7f"/><stop offset="1" stop-color="#9c7a2e"/>
+</linearGradient>
+<linearGradient id="goldV" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#f3dc92"/><stop offset=".5" stop-color="#c9a14a"/><stop offset="1" stop-color="#8f6d25"/>
+</linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5">
+<stop offset="0" stop-color="#fff6d8" stop-opacity=".95"/><stop offset=".4" stop-color="#ffd27a" stop-opacity=".45"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity=".08"/><stop offset=".8" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+</linearGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="18"/></filter>
+<filter id="soft2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .05 0"/></filter>
+</defs>
+<radialGradient id="bg2" cx="0.5" cy=".38" r=".85">
+<stop offset="0" stop-color="#fffaeb"/><stop offset=".6" stop-color="#ece0d1"/><stop offset="1" stop-color="#d6cabb"/>
+</radialGradient>
+<rect width="800" height="1000" fill="url(#bg2)"/>
+<path d="M0 780 Q 400 740 800 780 L 800 1000 L 0 1000 Z" fill="#dacebf" opacity=".9"/>
+<ellipse cx="400" cy="810" rx="220" ry="26" fill="#2a1418" opacity="0.28" filter="url(#soft)"/>
+<linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7b7a3"/><stop offset="1" stop-color="#f3d6db"/></linearGradient>
+<path d="M460 790 L 540 300 L 560 300 L 500 790Z" fill="#5a3826"/>
+<rect x="180" y="230" width="440" height="560" rx="10" fill="url(#gold)"/>
+<rect x="204" y="254" width="392" height="512" fill="#fffaf2"/>
+<rect x="240" y="290" width="320" height="360" fill="url(#sky1)"/>
+<circle cx="400" cy="520" r="70" fill="#fff4dc" opacity=".8"/>
+<path d="M240 600 Q 340 540 400 590 T 560 570 L 560 650 L 240 650Z" fill="#bb7b67" opacity=".6"/>
+<g fill="#2a1a1d"><circle cx="366" cy="470" r="20"/><path d="M336 600 Q 336 500 366 496 Q 396 500 394 600Z"/>
+<circle cx="430" cy="476" r="18"/><path d="M402 600 Q 404 506 430 502 Q 458 506 458 600Z"/></g>
+<path d="M400 420 C 378 400 384 380 400 392 C 416 380 422 400 400 420Z" fill="#b3123a"/>
+<text x="400" y="710" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#2a1a1d">Forever &amp; Always</text>
+<text x="400" y="744" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="5" fill="#9c7a2e">EST. 2019</text>
+</svg>

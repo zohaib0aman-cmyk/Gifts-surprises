@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------- tokens
+   Brand colours are injected at runtime from Admin → Customize
+   (--brand-primary / --brand-accent / --brand-blush / --brand-cream). */
+:root {
+  --brand-primary: #16110f;
+  --brand-accent: #c9a14a;
+  --brand-blush: #f2dcdf;
+  --brand-cream: #faf6ef;
+  --rose: #b3123a;
+
+  --bg: var(--brand-cream);
+  --surface: #ffffff;
+  --surface-2: color-mix(in oklab, var(--brand-blush) 45%, var(--brand-cream));
+  --fg: #1d1416;
+  --muted: #6b5a5d;
+  --border: color-mix(in oklab, var(--brand-primary) 12%, transparent);
+  --ink: var(--brand-primary);
+  --on-ink: #fbf7ef;
+  --gold: var(--brand-accent);
+  --gold-ink: color-mix(in oklab, var(--brand-accent) 70%, #3b2a08);
+  --blush: var(--brand-blush);
+  --ring: color-mix(in oklab, var(--brand-accent) 70%, transparent);
+  --shadow-soft: 0 1px 2px rgb(29 20 22 / 0.04), 0 8px 24px -8px rgb(29 20 22 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(29 20 22 / 0.05), 0 22px 48px -18px rgb(29 20 22 / 0.28);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #110c0d;
+  --surface: #1a1315;
+  --surface-2: #231a1d;
+  --fg: #f6efe6;
+  --muted: #bcaba7;
+  --border: rgb(255 255 255 / 0.1);
+  --ink: color-mix(in oklab, var(--brand-accent) 92%, white);
+  --on-ink: #1a1012;
+  --gold-ink: color-mix(in oklab, var(--brand-accent) 85%, white);
+  --blush: color-mix(in oklab, var(--brand-blush) 14%, #1a1315);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -10px rgb(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.4), 0 26px 60px -20px rgb(0 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+/* font pairings, switchable from the admin panel */
+html[data-font="classic"] { --fd: var(--font-playfair); --fb: var(--font-manrope); }
+html[data-font="romantic"] { --fd: var(--font-cormorant); --fb: var(--font-manrope); }
+html[data-font="editorial"] { --fd: var(--font-bodoni); --fb: var(--font-dmsans); }
+html[data-font="modern"] { --fd: var(--font-fraunces); --fb: var(--font-dmsans); }
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --font-display: var(--fd), "Playfair Display", Georgia, serif;
+  --font-sans: var(--fb), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-script-face), cursive;
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+  --radius-4xl: 2rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
+}
+
+@keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------------------------------------------------------------- base */
+html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.015em; }
+::selection { background: color-mix(in oklab, var(--gold) 35%, transparent); }
+
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
+
+/* subtle paper texture for premium feel */
+.paper {
+  background-image: radial-gradient(color-mix(in oklab, var(--fg) 5%, transparent) 0.6px, transparent 0.6px);
+  background-size: 14px 14px;
+}
+
+.gold-text {
+  background: linear-gradient(100deg, #8a6620, #c9a14a 30%, #a8812f 55%, #d9b45e 75%, #8a6620);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.dark .gold-text { background: linear-gradient(100deg, #c9a14a, #f3dc92 35%, #d8b25a 60%, #f6e3a1 80%, #c9a14a); -webkit-background-clip: text; background-clip: text; }
+.gold-bg { background: linear-gradient(120deg, #b88a35, #e9cf7f 40%, #c9a14a 60%, #f3dc92 85%); }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, color-mix(in oklab, var(--surface-2) 55%, var(--surface)) 37%, var(--surface-2) 63%);
+  background-size: 400% 100%;
+  animation: var(--animate-shimmer);
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* prose for policies */
+.prose-gs h2 { font-family: var(--font-display); font-size: 1.5rem; margin: 2.2rem 0 0.75rem; }
+.prose-gs p { color: var(--muted); line-height: 1.8; margin: 0.6rem 0; }
+.prose-gs ul { margin: 0.6rem 0 0.6rem 1.25rem; list-style: disc; color: var(--muted); line-height: 1.8; }
+.prose-gs strong { color: var(--fg); }
+.prose-gs a { color: var(--gold-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* mobile safe-area for bottom nav */
+.pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: black; }
+}
