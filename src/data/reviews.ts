@@ -55,7 +55,7 @@ SEED_PRODUCTS.forEach((p, pi) => {
   const pool = [...(BY_CATEGORY[p.category] ?? []), ...GENERAL];
   const count = 3 + (pi % 4);
   for (let i = 0; i < count; i++) {
-    const [rating, title, body] = pool[(pi * 3 + i * 5) % pool.length];
+    const [rating, title, body] = pool[(pi * 3 + i * 7) % pool.length];
     const [author, location] = PEOPLE[(pi * 7 + i * 3) % PEOPLE.length];
     const daysAgo = Math.floor(r() * 120) + 2;
     SEED_REVIEWS.push({
