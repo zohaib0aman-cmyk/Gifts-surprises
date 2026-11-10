@@ -1,6 +1,5 @@
 "use client";
 import { MotionConfig } from "framer-motion";
-import { ThemeProvider } from "next-themes";
 import { createContext, useContext, type ReactNode } from "react";
 import type { SiteSettings } from "@/lib/types";
 
@@ -15,10 +14,8 @@ export const useSettings = () => {
 
 export function Providers({ settings, children }: { settings: PublicSettings; children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-      <MotionConfig reducedMotion="user">
-        <Ctx.Provider value={settings}>{children}</Ctx.Provider>
-      </MotionConfig>
-    </ThemeProvider>
+    <MotionConfig reducedMotion="user">
+      <Ctx.Provider value={settings}>{children}</Ctx.Provider>
+    </MotionConfig>
   );
 }

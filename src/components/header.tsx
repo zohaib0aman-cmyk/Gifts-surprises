@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import { ChevronDown, Moon, Search, Sun, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/lib/theme";
 import { useEffect, useState } from "react";
 import { Logo } from "./brand";
 import { CartIcon, HeartIcon, InstagramGlyph, MenuIcon } from "./icons";

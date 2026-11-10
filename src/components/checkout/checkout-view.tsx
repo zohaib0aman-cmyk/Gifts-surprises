@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Check, Lock, Pencil, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/lib/theme";
 import { useState } from "react";
 import { Logo } from "../brand";
 import { EmptyCart, FreeShippingBar } from "../cart";

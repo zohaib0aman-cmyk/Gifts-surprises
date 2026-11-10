@@ -3,6 +3,7 @@ import { Bodoni_Moda, Cormorant_Garamond, DM_Sans, Fraunces, Great_Vibes, Manrop
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { getSettings } from "@/lib/db";
+import { themeScript } from "@/lib/theme";
 
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
@@ -54,6 +55,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       className={`${playfair.variable} ${manrope.variable} ${script.variable} ${cormorant.variable} ${bodoni.variable} ${fraunces.variable} ${dmsans.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <style id="brand-vars" dangerouslySetInnerHTML={{ __html: brandCss }} />
       </head>
       <body className="min-h-dvh">

@@ -50,8 +50,8 @@ function statusFor(ageDays: number): OrderStatus {
 }
 
 export const DEMO_ORDERS: Order[] = [];
-for (let i = 0; i < 64; i++) {
-  const age = Math.pow(r(), 1.3) * 45; // more recent orders weighted
+for (let i = 0; i < 90; i++) {
+  const age = Math.pow(r(), 1.1) * 60; // more recent orders weighted
   const created = NOW - age * DAY;
   const cust = DEMO_CUSTOMERS[Math.floor(r() * DEMO_CUSTOMERS.length)];
   const nLines = 1 + Math.floor(r() * 2.2);
