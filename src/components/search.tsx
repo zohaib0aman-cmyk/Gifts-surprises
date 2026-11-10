@@ -9,7 +9,7 @@ import { useUI } from "@/lib/client-store";
 import { cn, money } from "@/lib/utils";
 
 type Hit = { id: string; slug: string; name: string; price: number; image: string; category: string };
-const POPULAR = ["Roses", "Hatbox", "Teddy", "Birthday", "Cake", "Balloons"];
+const POPULAR = ["Roses", "Heart box", "Teddy", "Cake", "Cupcakes", "Basket"];
 
 function useSuggestions(q: string) {
   const [hits, setHits] = useState<Hit[]>([]);

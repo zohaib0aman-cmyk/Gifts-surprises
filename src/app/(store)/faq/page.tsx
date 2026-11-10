@@ -11,7 +11,7 @@ const GROUPS = [
     { q: "Do I need an account to order?", a: "No. Guest checkout is quick and easy. An account simply lets you track orders, save addresses and keep a wishlist." },
   ] },
   { title: "Delivery", items: [
-    { q: "Do you offer same-day delivery?", a: "Yes, in 40+ US metros for orders placed before 2pm local time. Flowers, cakes and balloons are delivered by hand. Everywhere else ships with USPS, UPS or FedEx." },
+    { q: "Do you offer same-day delivery?", a: "Yes, in 40+ US metros for orders placed before 2pm local time. Flowers, cakes and cupcakes are delivered by hand. Everywhere else ships with USPS, UPS or FedEx." },
     { q: "How much is shipping?", a: "Standard delivery is free on orders over the threshold shown in your bag. Express options (UPS 2nd Day Air, FedEx Overnight) are available at checkout." },
     { q: "Will I know when it's delivered?", a: "Yes — you'll get email updates at every step and can track your order any time. For surprise packages we'll even send photos and a reaction video." },
   ] },

@@ -9,7 +9,6 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test --trace off",
-    "art": "node scripts/generate-product-art.mjs && node scripts/rasterize-product-art.mjs && node -e \"for (const f of require('fs').readdirSync('public/products')) if (f.endsWith('.svg')||f==='.generated') require('fs').rmSync('public/products/'+f)\"",
     "reset-demo": "node -e \"require('fs').rmSync('.data',{recursive:true,force:true})\""
   },
   "dependencies": {

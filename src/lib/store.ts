@@ -44,8 +44,9 @@ const seedData = (): Record<Collection, Doc[]> => ({
 /* ------------------------------------------------------------------ memory */
 type MemDB = Record<Collection, Map<string, Doc>>;
 const g = globalThis as unknown as { __gsdb?: MemDB; __gsdbTimer?: NodeJS.Timeout };
-const DATA_FILE = path.join(process.env.DATA_DIR || path.join(process.cwd(), ".data"), "db.json");
-const canPersist = !process.env.VERCEL;
+// Serverless hosts (Vercel) only allow writes to /tmp — fine for demos; use Supabase for production.
+const DATA_FILE = path.join(process.env.DATA_DIR || (process.env.VERCEL ? "/tmp/gs-data" : path.join(process.cwd(), ".data")), "db.json");
+const canPersist = true;
 
 function loadMem(): MemDB {
   if (g.__gsdb) return g.__gsdb;

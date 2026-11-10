@@ -13,15 +13,15 @@ import { cn } from "@/lib/utils";
 /** Server-rendered homepage sections: static markup, only small client islands hydrate. */
 /* ------------------------------------------------------------ occasions */
 const OCC_ART: Record<string, string> = {
-  birthday: "/products/red-velvet-rose-celebration-cake-1.webp",
-  anniversary: "/products/crimson-velvet-rose-bouquet-1.webp",
-  valentines: "/products/be-mine-heart-teddy-1.webp",
-  "mothers-day": "/products/mothers-day-pamper-package-1.webp",
-  graduation: "/products/happy-birthday-balloon-bouquet-1.webp",
-  "new-baby": "/products/parisian-macaron-gift-box-1.webp",
-  "get-well": "/products/garden-party-mixed-bouquet-1.webp",
-  "thank-you": "/products/signature-gold-gift-box-1.webp",
-  "just-because": "/products/eternal-rose-glass-dome-1.webp",
+  birthday: "/photos/cake-19.webp",
+  anniversary: "/photos/p12.webp",
+  valentines: "/photos/heart-07.webp",
+  "mothers-day": "/photos/p02.webp",
+  graduation: "/photos/p13.webp",
+  "new-baby": "/photos/teddy-08.webp",
+  "get-well": "/photos/p16.webp",
+  "thank-you": "/photos/p11.webp",
+  "just-because": "/photos/garland-05.webp",
 };
 
 export function OccasionGrid() {
@@ -55,9 +55,9 @@ export function OccasionGrid() {
 
 /* ------------------------------------------------------------ recipients */
 const REC_IMG: Record<string, string> = {
-  her: "/products/blush-whisper-rose-hatbox-2.webp", him: "/products/wine-cheese-celebration-basket-2.webp", mom: "/products/spa-day-self-care-hamper-2.webp",
-  dad: "/products/gourmet-snack-basket-2.webp", couples: "/products/anniversary-romance-package-2.webp", kids: "/products/giant-cuddle-bear-2.webp",
-  friends: "/products/parisian-macaron-gift-box-2.webp", colleagues: "/products/belgian-truffle-collection-2.webp",
+  her: "/photos/bouquet-02.webp", him: "/photos/lays-05.webp", mom: "/photos/cake-09.webp",
+  dad: "/photos/p11.webp", couples: "/photos/p17.webp", kids: "/photos/teddy-15.webp",
+  friends: "/photos/p03.webp", colleagues: "/photos/cupcakes-06.webp",
 };
 export function RecipientRail() {
   return (
@@ -177,8 +177,8 @@ export function ReviewsSection({ reviews, products }: { reviews: Review[]; produ
 /* ------------------------------------------------------------ instagram */
 export function InstagramFeed({ instagram }: { instagram: string }) {
   const social = { instagram };
-  const posts = [1, 2, 3, 4, 5, 6].map((n) => `/instagram/ig-${n}.webp`);
-  const captions = ["Birthday rose cake & 100-rose bouquet", "Pink wrapped, ready for delivery", "Fresh from the flower market", "Red rose heart cake", "Hand-tied bouquets for today's surprises", "The best gifts in USA 🇺🇸"];
+  const posts = ["p15", "p03", "p12", "p17", "p19", "p16"].map((n) => `/photos/${n}.webp`);
+  const captions = ["Roses, teddy & a name cake for Hayati", "Rose-swirl cupcakes with gold leaf", "A hundred red roses, hand-tied", "Glitter rose heart box & treats", "Pearl & rose birthday cake", "A handwritten note in every basket"];
   return (
     <section className="py-16 sm:py-24" aria-labelledby="ig-h">
       <Container>

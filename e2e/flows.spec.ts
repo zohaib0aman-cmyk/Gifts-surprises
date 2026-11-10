@@ -15,12 +15,12 @@ test("home renders hero, sections and no horizontal overflow", async ({ page }) 
 test("shop filters and search", async ({ page }) => {
   await page.goto("/shop?category=flowers");
   await expect(page.getByRole("heading", { name: "Flowers & Bouquets" })).toBeVisible();
-  await page.getByLabel("Search the collection").fill("hatbox");
+  await page.getByLabel("Search the collection").fill("gajra");
   await expect(page.getByText(/1 gift/)).toBeVisible();
 });
 
 test("browse → cart → checkout → pay → confirmation → admin fulfils", async ({ page }) => {
-  await page.goto("/product/blush-whisper-rose-hatbox", { waitUntil: "networkidle" });
+  await page.goto("/product/pearl-rose-celebration-cake", { waitUntil: "networkidle" });
   await page.locator("#gift-msg").fill("Happy birthday!");
   await page.getByRole("button", { name: /Add to bag ·/ }).click();
   await expect(page.getByText("Added to your bag")).toBeVisible();
@@ -53,7 +53,7 @@ test("browse → cart → checkout → pay → confirmation → admin fulfils", 
 });
 
 test("declined card shows failure screen", async ({ page }) => {
-  await page.goto("/product/belgian-truffle-collection", { waitUntil: "networkidle" });
+  await page.goto("/product/rose-swirl-cupcakes", { waitUntil: "networkidle" });
   await page.getByRole("button", { name: /Add to bag ·/ }).click();
   await expect(page.getByText("Added to your bag")).toBeVisible();
   await page.goto("/checkout");

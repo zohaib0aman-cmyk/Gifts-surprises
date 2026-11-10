@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { ExternalLink, MapPin } from "lucide-react";
+import { TrackFallback } from "@/components/checkout/order-fallback";
 import { OrderTimeline } from "@/components/order-timeline";
 import { ProductImage } from "@/components/product-image";
 import { Badge, ButtonLink, Container } from "@/components/ui";
@@ -18,7 +18,7 @@ const CARRIER_URL: Record<string, (n: string) => string> = {
 export default async function TrackOrderPage({ params }: PageProps<"/track/[id]">) {
   const { id } = await params;
   const order = await getOrder(id);
-  if (!order) notFound();
+  if (!order) return <TrackFallback id={id.slice(0, 64)} />;
   const a = order.shippingAddress;
   return (
     <Container className="max-w-4xl py-10 sm:py-14">

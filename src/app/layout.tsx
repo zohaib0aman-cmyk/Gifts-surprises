@@ -22,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(siteUrl),
     title: { default: `${s.storeName} — Luxury Gifts, Flowers & Birthday Surprises`, template: `%s · ${s.storeName}` },
-    description: "Rose hatboxes, luxury gift boxes, cakes, teddy bears and full surprise setups delivered across the USA. Order from anywhere in the world.",
-    keywords: ["gift delivery USA", "birthday surprise", "rose hatbox", "flower delivery", "surprise planner", "anniversary gifts", "teddy bear delivery"],
+    description: "Red rose bouquets, celebration cakes, cupcakes, treat baskets, teddy bears and full surprise setups delivered across the USA. Order from anywhere in the world.",
+    keywords: ["gift delivery USA", "birthday surprise", "rose bouquet delivery", "flower delivery", "surprise planner", "anniversary gifts", "teddy bear delivery"],
     openGraph: { type: "website", siteName: s.storeName, locale: "en_US", url: siteUrl },
     twitter: { card: "summary_large_image" },
     alternates: { canonical: "/" },

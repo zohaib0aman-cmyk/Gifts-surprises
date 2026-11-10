@@ -6,5 +6,5 @@ export const metadata: Metadata = { title: "Your Bag", robots: { index: false } 
 
 export default async function CartPage() {
   const products = await listProducts();
-  return <CartPageView suggestions={products.map(slimProduct).filter((p) => ["be-mine-heart-teddy", "belgian-truffle-collection", "happy-birthday-balloon-bouquet", "eternal-rose-glass-dome"].includes(p.slug))} />;
+  return <CartPageView suggestions={products.map(slimProduct).filter((p) => ["love-you-teddy-bear", "rose-swirl-cupcakes", "fresh-rose-gajra-garland", "chocolate-crunch-basket"].includes(p.slug))} />;
 }

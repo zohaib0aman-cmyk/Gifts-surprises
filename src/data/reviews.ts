@@ -23,19 +23,19 @@ const GENERAL: [number, string, string][] = [
 const BY_CATEGORY: Record<string, [number, string, string][]> = {
   flowers: [
     [5, "Roses were perfect", "Every single rose was open and velvety — not one bruised petal. Still looking fresh a week later."],
-    [5, "The hatbox is everything", "The box is sturdy and beautiful, she's keeping it as decor. The baby's breath detail is so elegant."],
+    [5, "The heart box is everything", "The roses sparkle in person and the box is so sturdy — she's keeping it as decor."],
   ],
   "gift-boxes": [
-    [5, "Best unboxing ever", "Every item felt hand-picked. The candle smells incredible and the ribbon was tied perfectly."],
+    [5, "Best basket ever", "Packed so generously and the satin ribbon was tied perfectly. The handwritten note was the sweetest touch."],
     [5, "Great corporate gift", "Sent these to six clients — all arrived on the same day, perfectly packed. Several clients emailed to thank us."],
   ],
   "cakes-sweets": [
     [5, "Delicious and gorgeous", "The cake was moist and not too sweet, and the roses on top made it look like a wedding cake. Everyone asked where it was from."],
-    [5, "Chocolates disappeared in a day", "Rich, silky, beautifully boxed. The raspberry rose flavor is a dream."],
+    [5, "Cupcakes disappeared in minutes", "Moist red velvet, silky frosting and that gold leaf — they looked like little roses. Everyone asked where they were from."],
   ],
   "teddy-balloons": [
     [5, "The bear is HUGE and so soft", "My daughter screamed when she opened the door. It's even softer than expected and the bow tie is adorable."],
-    [5, "Balloons lasted all week", "Still floating five days later! Colors were elegant, not cheesy at all."],
+    [5, "Softest teddy ever", "The little I Love You heart made her cry. Arrived with a bow, perfectly clean and fluffy."],
   ],
   personalized: [
     [5, "Engraving is flawless", "The initial is crisp and delicate. She hasn't taken it off since. Velvet box made it feel very premium."],
@@ -43,7 +43,7 @@ const BY_CATEGORY: Record<string, [number, string, string][]> = {
   ],
   "surprise-packages": [
     [5, "They filmed the whole surprise!", "I was in Dubai for my sister's birthday — the team set everything up and sent a video of her walking in. I watched it twenty times. Truly magical."],
-    [5, "Planners were incredible", "They coordinated with her roommate, set up in 40 minutes and left the place spotless. The balloon garland was Pinterest-level."],
+    [5, "Planners were incredible", "They coordinated with her roommate, set up in 40 minutes and left the place spotless. The table setup was Pinterest-level."],
   ],
 };
 

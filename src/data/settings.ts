@@ -127,7 +127,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     eyebrow: "Surprise planners · USA-wide",
     title: "Gifts that make",
     highlight: "hearts skip a beat",
-    subtitle: "Hand-crafted rose hatboxes, luxe gift boxes and full surprise setups — planned by us, delivered across the USA, ordered from anywhere in the world.",
+    subtitle: "Hand-tied rose bouquets, celebration cakes, treat baskets and full surprise setups — planned by us, delivered across the USA, ordered from anywhere in the world.",
     ctaLabel: "Shop gifts",
     ctaHref: "/shop",
     secondaryLabel: "Find the perfect gift",

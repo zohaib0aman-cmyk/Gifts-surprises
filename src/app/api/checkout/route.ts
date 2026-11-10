@@ -4,6 +4,7 @@ import { getCustomerSession, HttpError, rateLimit } from "@/lib/auth";
 import { addSubscriber, newId, nextOrderNumber, saveOrder } from "@/lib/db";
 import { env } from "@/lib/env";
 import { finalizeOrder } from "@/lib/orders";
+import { signOrder } from "@/lib/order-token";
 import { getStripe, paymentMode, toCents } from "@/lib/payments";
 import { computeQuote, quoteInputSchema } from "@/lib/quote";
 import type { Order } from "@/lib/types";
@@ -73,7 +74,7 @@ export const POST = route(async (req) => {
 
   const mode = paymentMode();
   if (input.paymentMethod === "paypal") {
-    return { orderId: order.id, total: order.total, paypal: mode.paypal ? "live" : "demo" };
+    return { orderId: order.id, total: order.total, paypal: mode.paypal ? "live" : "demo", token: mode.paypal ? undefined : await signOrder(order) };
   }
   const stripe = getStripe();
   if (stripe) {
@@ -88,5 +89,5 @@ export const POST = route(async (req) => {
     await saveOrder({ ...order, paymentIntentId: pi.id });
     return { orderId: order.id, total: order.total, clientSecret: pi.client_secret, publishableKey: env.stripePublishable };
   }
-  return { orderId: order.id, total: order.total, demo: true };
+  return { orderId: order.id, total: order.total, demo: true, token: await signOrder(order) };
 });

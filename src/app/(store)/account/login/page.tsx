@@ -14,7 +14,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/account/lo
   return (
     <Container className="grid max-w-5xl items-center gap-10 py-10 sm:py-16 lg:grid-cols-2">
       <div className="hidden lg:block">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lift"><ProductImage src="/products/signature-gold-gift-box-2.webp" alt="" fill sizes="40vw" /></div>
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-lift"><ProductImage src="/photos/p15.webp" alt="" fill sizes="40vw" /></div>
       </div>
       <div>
         <p className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-gold-ink">Members</p>

@@ -24,8 +24,8 @@ export default function AboutPage() {
             <div className="mt-8 flex flex-wrap gap-3"><ButtonLink href="/shop">Shop gifts</ButtonLink><ButtonLink href="/contact" variant="outline">Plan a custom surprise</ButtonLink></div>
           </div>
           <div className="relative grid grid-cols-2 gap-4">
-            <Reveal className="relative mt-10 aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lift"><ProductImage src="/instagram/ig-1.webp" alt="A rose bouquet and birthday cake prepared by our team" fill sizes="(min-width:1024px) 25vw, 50vw" /></Reveal>
-            <Reveal delay={0.15} className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lift"><ProductImage src="/instagram/ig-5.webp" alt="Hand-tied bouquets ready for delivery" fill sizes="(min-width:1024px) 25vw, 50vw" /></Reveal>
+            <Reveal className="relative mt-10 aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lift"><ProductImage src="/photos/p19.webp" alt="A rose bouquet and birthday cake prepared by our team" fill sizes="(min-width:1024px) 25vw, 50vw" /></Reveal>
+            <Reveal delay={0.15} className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-lift"><ProductImage src="/photos/p16.webp" alt="A snack basket with a handwritten note" fill sizes="(min-width:1024px) 25vw, 50vw" /></Reveal>
           </div>
         </Container>
       </section>

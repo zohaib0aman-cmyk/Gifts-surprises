@@ -29,7 +29,7 @@ export const POST = route(async (req) => {
       details: split(r.details),
       price: Number(r.price),
       compareAtPrice: r.compare_at_price ? Number(r.compare_at_price) : undefined,
-      images: split(r.image_urls).length ? split(r.image_urls) : prev?.images ?? ["/brand/gift-card.svg"],
+      images: split(r.image_urls).length ? split(r.image_urls) : prev?.images ?? ["/photos/p12.webp"],
       category: r.category || prev?.category || "gift-boxes",
       occasions: split(r.occasions),
       recipients: split(r.recipients),

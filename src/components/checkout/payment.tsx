@@ -148,7 +148,11 @@ export function ExpressButtons({ onPick, disabled }: { onPick: (k: "apple_pay" |
   );
 }
 
-export function DemoPayment({ orderId, total }: { orderId: string; total: number }) {
+export function rememberOrder(order: unknown, id: string) {
+  try { sessionStorage.setItem(`gs-order-${id}`, JSON.stringify(order)); } catch { /* ignore */ }
+}
+
+export function DemoPayment({ orderId, total, token }: { orderId: string; total: number; token?: string }) {
   const router = useRouter();
   const [method, setMethod] = useState<"card" | "wallet">("card");
   const [card, setCard] = useState("4242 4242 4242 4242");
@@ -163,10 +167,10 @@ export function DemoPayment({ orderId, total }: { orderId: string; total: number
     setBusy(true);
     setErr("");
     try {
-      const r = await fetch("/api/checkout/demo-pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ orderId, method: m, cardNumber: card }) });
+      const r = await fetch("/api/checkout/demo-pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ orderId, method: m, cardNumber: card, token }) });
       const j = await r.json();
       if (!r.ok) { setErr(j.error ?? "Payment failed"); setBusy(false); return; }
-      if (j.status === "paid") router.push(`/checkout/success?order=${orderId}`);
+      if (j.status === "paid") { rememberOrder(j.order, orderId); router.push(`/checkout/success?order=${orderId}`); }
       else router.push(`/checkout/failed?order=${orderId}&reason=${encodeURIComponent(j.reason ?? "Payment was declined")}`);
     } catch {
       setErr("Network error — please try again.");

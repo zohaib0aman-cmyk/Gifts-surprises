@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { body, route } from "@/lib/api";
 import { HttpError } from "@/lib/auth";
-import { getOrder } from "@/lib/db";
+import { getOrder, saveOrder } from "@/lib/db";
+import { verifyOrder } from "@/lib/order-token";
 import { hasPayPal, hasStripe } from "@/lib/env";
 import { finalizeOrder, markOrder } from "@/lib/orders";
 
@@ -14,13 +15,19 @@ const schema = z.object({
   method: z.enum(["card", "apple_pay", "google_pay", "paypal"]),
   cardNumber: z.string().max(25).optional(),
   outcome: z.enum(["success", "cancel"]).optional(),
+  token: z.string().max(60_000).optional(),
 });
 
 export const POST = route(async (req) => {
   const input = await body(req, schema);
   if (input.method === "paypal" ? hasPayPal() : hasStripe()) throw new HttpError(400, "Live test-mode payments are configured; demo payments are disabled.");
-  const order = await getOrder(input.orderId);
-  if (!order) throw new HttpError(404, "Order not found");
+  let order = await getOrder(input.orderId);
+  if (!order) {
+    // serverless demo: the order may have been created on another instance
+    const snap = await verifyOrder(input.token);
+    if (!snap || snap.id !== input.orderId) throw new HttpError(404, "Order not found");
+    order = await saveOrder(snap);
+  }
   if (order.status !== "pending" && order.status !== "failed") return { status: order.status, orderId: order.id };
   if (input.outcome === "cancel") {
     await markOrder(order.id, "pending", "Payment cancelled by customer");
@@ -34,6 +41,6 @@ export const POST = route(async (req) => {
       return { status: "failed", orderId: order.id, reason: digits.endsWith("9995") ? "Your card has insufficient funds." : "Your card was declined." };
     }
   }
-  await finalizeOrder(order.id, { paymentMethod: input.method, paymentIntentId: `demo_${input.method}_${Date.now()}` });
-  return { status: "paid", orderId: order.id };
+  const paid = await finalizeOrder(order.id, { paymentMethod: input.method, paymentIntentId: `demo_${input.method}_${Date.now()}` });
+  return { status: "paid", orderId: order.id, order: paid };
 });

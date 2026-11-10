@@ -9,7 +9,7 @@ import { Logo } from "../brand";
 import { EmptyCart, FreeShippingBar } from "../cart";
 import { useSettings } from "../providers";
 import { Button, Checkbox, Field, Input, Select } from "../ui";
-import { DemoPayment, ExpressButtons, PayPalLive, StripePayment } from "./payment";
+import { DemoPayment, ExpressButtons, PayPalLive, rememberOrder, StripePayment } from "./payment";
 import { OrderSummary } from "./summary";
 import { toQuoteLines, useQuote } from "./use-quote";
 import { cartSubtotal, useCart, useHydrated } from "@/lib/client-store";
@@ -22,7 +22,7 @@ type Props = {
   paypalClientId: string;
   prefill?: { email: string; address?: Address };
 };
-type PayState = { orderId: string; total: number; clientSecret?: string; publishableKey?: string; demo?: boolean; paypal?: "live" | "demo" } | null;
+type PayState = { orderId: string; total: number; clientSecret?: string; publishableKey?: string; demo?: boolean; paypal?: "live" | "demo"; token?: string } | null;
 
 const CARRIER_STYLE: Record<string, string> = { usps: "bg-[#333366] text-white", ups: "bg-[#351c15] text-[#ffb500]", fedex: "bg-[#4d148c] text-white" };
 
@@ -190,14 +190,14 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
                     pay.clientSecret && pay.publishableKey ? (
                       <StripePayment clientSecret={pay.clientSecret} publishableKey={pay.publishableKey} orderId={pay.orderId} total={pay.total} dark={resolvedTheme === "dark"} />
                     ) : (
-                      <DemoPayment orderId={pay.orderId} total={pay.total} />
+                      <DemoPayment orderId={pay.orderId} total={pay.total} token={pay.token} />
                     )
                   ) : paypalClientId ? (
                     <PayPalLive clientId={paypalClientId} orderId={pay.orderId} />
                   ) : (
                     <div className="space-y-3">
                       <p className="text-sm text-muted">You&apos;ll be asked to log in to PayPal to approve {money(pay.total)}.</p>
-                      <DemoPayPal orderId={pay.orderId} total={pay.total} />
+                      <DemoPayPal orderId={pay.orderId} total={pay.total} token={pay.token} />
                     </div>
                   )}
                   <button type="button" onClick={() => router.push(`/checkout/cancelled?order=${pay.orderId}`)} className="mx-auto block min-h-11 text-sm font-semibold text-muted underline-offset-4 hover:underline">Cancel payment</button>
@@ -220,13 +220,14 @@ export function CheckoutView({ rates, states, paypalClientId, prefill }: Props) 
   );
 }
 
-function DemoPayPal({ orderId, total }: { orderId: string; total: number }) {
+function DemoPayPal({ orderId, total, token }: { orderId: string; total: number; token?: string }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const go = async () => {
     setBusy(true);
-    const r = await fetch("/api/checkout/demo-pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ orderId, method: "paypal" }) });
+    const r = await fetch("/api/checkout/demo-pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ orderId, method: "paypal", token }) });
     const j = await r.json();
+    if (j.status === "paid") rememberOrder(j.order, orderId);
     router.push(j.status === "paid" ? `/checkout/success?order=${orderId}` : `/checkout/failed?order=${orderId}`);
   };
   return (

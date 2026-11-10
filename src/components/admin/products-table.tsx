@@ -12,8 +12,8 @@ import { cn, money } from "@/lib/utils";
 
 const stockOf = (p: Product) => (p.variants?.options.length ? p.variants.options.reduce((a, o) => a + o.stock, 0) : p.stock);
 const SAMPLE = `name,slug,subtitle,description,price,compare_at_price,category,occasions,recipients,tags,stock,image_urls,status,delivery_days
-Lavender Dreams Bouquet,lavender-dreams-bouquet,Lilac roses & lavender,Soft lilac roses with dried lavender in a pastel wrap.,85,,flowers,birthday|thank-you,her|mom,roses|lavender,20,/products/garden-party-mixed-bouquet-2.webp,active,1
-Chocolate Lover's Crate,chocolate-lovers-crate,Truffles brownies & cocoa,A crate of artisan chocolate treats.,64,72,cakes-sweets,thank-you|christmas,friends|colleagues,chocolate,35,/products/belgian-truffle-collection-2.webp,active,2`;
+Lavender Dreams Bouquet,lavender-dreams-bouquet,Lilac roses & lavender,Soft lilac roses with dried lavender in a pastel wrap.,85,,flowers,birthday|thank-you,her|mom,roses|lavender,20,/photos/bouquet-13.webp,active,1
+Chocolate Lover's Crate,chocolate-lovers-crate,Truffles brownies & cocoa,A crate of artisan chocolate treats.,64,72,cakes-sweets,thank-you|christmas,friends|colleagues,chocolate,35,/photos/p11.webp,active,2`;
 
 function CsvImport({ onClose }: { onClose: () => void }) {
   const [csv, setCsv] = useState("");
